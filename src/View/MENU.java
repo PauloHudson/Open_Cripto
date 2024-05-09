@@ -9,7 +9,7 @@ package View;
  * @author paulo
  */
 public class MENU extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form MENU
      */
@@ -26,11 +26,67 @@ public class MENU extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        Sair = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setText("Depositar");
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 123, 66));
+
+        jButton2.setText("Sacar");
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 123, 66));
+
+        jButton3.setText("Extrato");
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 123, 66));
+
+        jButton5.setText("Comprar Cripto");
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 123, 66));
+
+        jButton6.setText("Vender Cripto");
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 123, 66));
+
+        Sair.setBackground(new java.awt.Color(255, 105, 97));
+        Sair.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Sair.setText("Sair");
+        Sair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SairActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Sair, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 290, 123, 66));
+
+        jButton8.setText("Update Cotação");
+        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 275, 66));
+
+        jButton9.setText("Saldo");
+        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 123, 66));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(169, 169, 169));
+        jLabel3.setText("Vender Comprar Sacar..");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(250, 250, 250));
+        jLabel2.setText("OPEN CRIPTO");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 320, 70));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Image/Back_back.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 410));
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -40,19 +96,12 @@ public class MENU extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_SairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -90,6 +139,17 @@ public class MENU extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Sair;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

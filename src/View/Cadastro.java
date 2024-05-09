@@ -6,13 +6,6 @@ package View;
 
 
 import Controller.JavaCadastroController;
-import Model.Usuario;
-import dao.UsuarioDAO;
-import dao.conexao;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -45,7 +38,7 @@ public class Cadastro extends javax.swing.JFrame {
     private void initComponents() {
 
         jPasswordSenha = new javax.swing.JPasswordField();
-        jTextFieldId = new javax.swing.JTextField();
+        jTextFieldNome = new javax.swing.JTextField();
         jTextFieldUsuario = new javax.swing.JTextField();
         Cadastro_Cadastro = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -57,7 +50,7 @@ public class Cadastro extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jPasswordSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 360, 40));
-        getContentPane().add(jTextFieldId, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 360, 40));
+        getContentPane().add(jTextFieldNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 360, 40));
         getContentPane().add(jTextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 360, 40));
 
         Cadastro_Cadastro.setText("CADASTRAR");
@@ -66,22 +59,25 @@ public class Cadastro extends javax.swing.JFrame {
                 Cadastro_CadastroActionPerformed(evt);
             }
         });
-        getContentPane().add(Cadastro_Cadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 360, 50));
+        getContentPane().add(Cadastro_Cadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 360, 60));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(250, 250, 250));
         jLabel4.setText("SENHA");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 110, 40));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel5.setText("USUARIO");
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(250, 250, 250));
+        jLabel5.setText("CPF");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 180, 40));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel2.setText("ID");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 70, 40));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(250, 250, 250));
+        jLabel2.setText("NOME");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 110, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Image/Back_back.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 460));
 
         jLabel3.setText("jLabel3");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -93,7 +89,9 @@ public class Cadastro extends javax.swing.JFrame {
         //ele vai simplesmente salvar o usuário.
         controller.SalvaUsuario();
     }//GEN-LAST:event_Cadastro_CadastroActionPerformed
-
+    
+    
+    //GettersANDSETTER.
     public JPasswordField getjPasswordSenha() {
         return jPasswordSenha;
     }
@@ -102,12 +100,12 @@ public class Cadastro extends javax.swing.JFrame {
         this.jPasswordSenha = jPasswordSenha;
     }
 
-    public JTextField getjTextFieldId() {
-        return jTextFieldId;
+    public JTextField getjTextFieldNome() {
+        return jTextFieldNome;
     }
 
-    public void setjTextFieldId(JTextField jTextFieldId) {
-        this.jTextFieldId = jTextFieldId;
+    public void setjTextFieldNome(JTextField jTextFieldNome) {
+        this.jTextFieldNome = jTextFieldNome;
     }
 
     public JTextField getjTextFieldUsuario() {
@@ -117,6 +115,8 @@ public class Cadastro extends javax.swing.JFrame {
     public void setjTextFieldUsuario(JTextField jTextFieldUsuario) {
         this.jTextFieldUsuario = jTextFieldUsuario;
     }
+    //------------------
+   
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -127,7 +127,7 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPasswordField jPasswordSenha;
-    private javax.swing.JTextField jTextFieldId;
+    private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldUsuario;
     // End of variables declaration//GEN-END:variables
 }

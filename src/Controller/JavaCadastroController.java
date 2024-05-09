@@ -1,6 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+/**
+ *
+ * @author paulo
  */
 package Controller;
 
@@ -23,30 +23,29 @@ public class JavaCadastroController {
     
     
     
-    public void SalvaUsuario(){
-
+public void SalvaUsuario() {
+    String usuario = view.getjTextFieldUsuario().getText();
+    String senha = view.getjPasswordSenha().getText();
+    String nome = view.getjTextFieldNome().getText();
+    
+    Usuario usuarioNovo = new Usuario(usuario, senha, nome);
+      
+    try {
+        java.sql.Connection conexao = new conexao().getConnection();
+        UsuarioDAO usuarioDao = new UsuarioDAO(conexao);
         
-        //pegar a string da tela, pegando otexto dentro do campo
-        //Aqui estamos acessando a classse view.Cadastro, e pegando o o texto que setá no campo J...
-        String usuario = view.getjTextFieldUsuario().getText();
-        String senha = view.getjPasswordSenha().getText();
+        usuarioDao.insert(usuarioNovo);
+        JOptionPane.showMessageDialog(null, "Usuário salvo com sucesso.");
+        view.dispose();
         
-        Usuario usuarioTeste = new Usuario(usuario, senha);
-          
-        try {
-            //pegar a conexão:
-            java.sql.Connection conexao = new conexao().getConnection();
-            //Salvar o usuário
-            UsuarioDAO usuariodao = new UsuarioDAO(conexao);
-            //Adiciono o usuário teste.
-            usuariodao.insert(usuarioTeste);
-            
-            JOptionPane.showMessageDialog(null, "Usuario Salvo com Sucesso");
-        } catch (SQLException ex) {
-            Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Usuario Não Salvo");
+    } catch (SQLException ex) {
+        if (ex.getMessage().equals("Usuário já cadastrado.")) {
+            JOptionPane.showMessageDialog(null, "Usuário já cadastrado. Tente outro nome de usuário.");
+        } else {
+            Logger.getLogger(JavaCadastroController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao salvar usuário: " + ex.getMessage());
         }
-     }
-    
-    
+    }
 }
+}
+

@@ -1,4 +1,7 @@
-
+/**
+ *
+ * @author paulo
+ */
 package Model;
 
 
@@ -6,6 +9,7 @@ public class Usuario {
     private int id;
     private String usuario;
     private String senha;
+    private String nome;
     
     //Get and SETTERS:
     public int getId() {
@@ -31,18 +35,39 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    //Constructor
 
-    public Usuario(int id, String usuario, String senha) {
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
+    //Constructor
+    public Usuario(int id, String usuario, String senha, String nome) {
         this.id = id;
         this.usuario = usuario;
         this.senha = senha;
+        this.nome = nome;
     }
 
+ 
+    
+    //validador
     public Usuario(String usuario, String senha) {
         this.usuario = usuario;
         this.senha = senha;
+        
     }
+    
+    //salvador
+    public Usuario(String usuario, String senha, String nome) {
+        this.usuario = usuario;
+        this.senha = senha;
+        this.nome = nome;
+    }
+    
     
     
     

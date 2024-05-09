@@ -3,7 +3,6 @@ package dao;
 
 
 import Model.Usuario;
-import View.Cadastro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,16 +26,31 @@ public class UsuarioDAO {
         this.connection = connection;
     }
     //Vai inserir os dados, tem de ser to tipo usuario(MODEL):
-    public void insert(Usuario usuario) throws SQLException{
-
-        //comando de inserção do sql.
-        String sql = "insert into usuario(usuario,senha) values('"+usuario.getUsuario()+"','"+usuario.getSenha()+"');";
-        PreparedStatement statment = connection.prepareStatement(sql);
-        statment.execute();  
-     
-             
+public void insert(Usuario usuario) throws SQLException {
+    // Verificar se o usuário já existe
+    if (existePorUsuario(usuario.getUsuario())) {
+        throw new SQLException("Usuário já cadastrado.");
     }
-    
+
+    // Comando de inserção no SQL
+    String sql = "INSERT INTO usuario(usuario, senha, nome) VALUES (?, ?, ?)";
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        statement.setString(1, usuario.getUsuario());
+        statement.setString(2, usuario.getSenha());
+        statement.setString(3, usuario.getNome());
+        statement.execute();
+    }
+}
+
+public boolean existePorUsuario(String usuario) throws SQLException {
+    String sql = "SELECT * FROM usuario WHERE usuario = ?";
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        statement.setString(1, usuario);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            return resultSet.next();
+        }
+    }
+}
     
     
     
@@ -63,8 +77,45 @@ try (Connection conn = new conexao().getConnection();
     e.printStackTrace();
     throw new RuntimeException("Erro ao acessar o banco de dados", e);
 }
-    };   
+    };  
+
+
+public Usuario buscarPorUsuario(String usuario) throws SQLException {
+    String sql = "SELECT * FROM usuario WHERE usuario = ?";
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        statement.setString(1, usuario);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                return new Usuario(
+                    resultSet.getString("usuario"),
+                    resultSet.getString("senha"),
+                    resultSet.getString("nome")
+                    // Adicione outros campos conforme necessário
+                );
+            }
+        }
+    }
+    return null;
+}
+
+public boolean deleteByUsuario(String usuario) throws SQLException {
+    String sql = "DELETE FROM usuario WHERE usuario = ?";
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        statement.setString(1, usuario);
+        int rowsDeleted = statement.executeUpdate();
+        return rowsDeleted > 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        throw new RuntimeException("Erro ao excluir o usuário", e);
+    }
+}
+
+
 
    
     
-}
+};
+
+
+
+
