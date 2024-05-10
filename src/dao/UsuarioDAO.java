@@ -2,6 +2,7 @@
 package dao;
 
 
+import Model.Moeda;
 import Model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,13 +20,19 @@ import java.sql.SQLException;
 
 
 //Tudo que for relativo ao usuário na conexão com o banco de dados, vai conectar aqui.
+
+
 public class UsuarioDAO {
+    
+    
     private final java.sql.Connection connection;
+    
     //apenas crio o usuário dao se tiver a conexão.
     public UsuarioDAO(Connection connection) {
         this.connection = connection;
     }
     //Vai inserir os dados, tem de ser to tipo usuario(MODEL):
+    
 public void insert(Usuario usuario) throws SQLException {
     // Verificar se o usuário já existe
     if (existePorUsuario(usuario.getUsuario())) {
@@ -34,6 +41,9 @@ public void insert(Usuario usuario) throws SQLException {
 
     // Comando de inserção no SQL
     String sql = "INSERT INTO usuario(usuario, senha, nome) VALUES (?, ?, ?)";
+    
+    
+    
     try (PreparedStatement statement = connection.prepareStatement(sql)) {
         statement.setString(1, usuario.getUsuario());
         statement.setString(2, usuario.getSenha());
@@ -41,6 +51,8 @@ public void insert(Usuario usuario) throws SQLException {
         statement.execute();
     }
 }
+
+
 
 public boolean existePorUsuario(String usuario) throws SQLException {
     String sql = "SELECT * FROM usuario WHERE usuario = ?";
@@ -52,7 +64,7 @@ public boolean existePorUsuario(String usuario) throws SQLException {
     }
 }
     
-    
+ 
     
     
     

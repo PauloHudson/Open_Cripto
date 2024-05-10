@@ -32,7 +32,7 @@ public class Admin extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
+        CadastrarCripto = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -64,8 +64,13 @@ public class Admin extends javax.swing.JFrame {
         jButton11.setText("Extrato User");
         getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 150, 65));
 
-        jButton12.setText("Cadastrar Cripto");
-        getContentPane().add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 150, 65));
+        CadastrarCripto.setText("Cadastrar Cripto");
+        CadastrarCripto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadastrarCriptoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(CadastrarCripto, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 150, 65));
 
         jButton13.setText("Cadastrar User");
         jButton13.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +95,11 @@ public class Admin extends javax.swing.JFrame {
         ExcuirUser excluir = new ExcuirUser();
         excluir.setVisible(true);
     }//GEN-LAST:event_Excluir_botaoActionPerformed
+
+    private void CadastrarCriptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarCriptoActionPerformed
+        CriptoCadastro cripto = new CriptoCadastro();
+        cripto.setVisible(true);
+    }//GEN-LAST:event_CadastrarCriptoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -127,10 +137,10 @@ public class Admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CadastrarCripto;
     private javax.swing.JButton Excluir_botao;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton9;
