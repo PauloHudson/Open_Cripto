@@ -13,7 +13,7 @@ public class MoedaDAO {
         this.connection = connection;
     }
 
-    public void insertMoeda(Moeda moeda) throws SQLException {
+public void insertMoeda(Moeda moeda) throws SQLException {
         if (existePorMoeda(moeda.getSigla())) {
             throw new SQLException("Moeda Já cadastrada");
         }
@@ -27,7 +27,7 @@ public class MoedaDAO {
         }
     }
 
-    public boolean existePorMoeda(String sigla) throws SQLException {
+public boolean existePorMoeda(String sigla) throws SQLException {
         String sql = "SELECT * FROM moeda WHERE sigla = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, sigla);
@@ -36,4 +36,16 @@ public class MoedaDAO {
             }
         }
     }
+public boolean deleteBySigla(String sigla) throws SQLException {
+    String sql = "DELETE FROM moeda WHERE sigla = ?";
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        statement.setString(1, sigla);
+        int rowsDeleted = statement.executeUpdate();
+        return rowsDeleted > 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        throw new RuntimeException("Erro ao excluir a moeda", e);
+    }
+}
+
 }

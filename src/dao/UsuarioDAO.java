@@ -102,7 +102,7 @@ public Usuario buscarPorUsuario(String usuario) throws SQLException {
                     resultSet.getString("usuario"),
                     resultSet.getString("senha"),
                     resultSet.getString("nome")
-                    // Adicione outros campos conforme necessário
+                    
                 );
             }
         }

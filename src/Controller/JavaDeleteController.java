@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Usuario;
+import dao.MoedaDAO;
 import dao.UsuarioDAO;
 import dao.conexao;
 import java.sql.SQLException;
@@ -8,7 +9,7 @@ import javax.swing.JOptionPane;
 
 public class JavaDeleteController {
 
-    public void excluirUsuarioPorUsuario(String usuario) {
+public void excluirUsuarioPorUsuario(String usuario) {
         try (java.sql.Connection conexao = new conexao().getConnection()) {
             UsuarioDAO usuarioDao = new UsuarioDAO(conexao);
             Usuario usuarioEncontrado = usuarioDao.buscarPorUsuario(usuario);
@@ -30,4 +31,24 @@ public class JavaDeleteController {
             JOptionPane.showMessageDialog(null, "Erro ao acessar o banco de dados: " + e.getMessage());
         }
     }
+public void excluirMoedaPorSigla(String sigla) {
+    try (java.sql.Connection conexao = new conexao().getConnection()) {
+        MoedaDAO moedaDao = new MoedaDAO(conexao);
+        if (moedaDao.existePorMoeda(sigla)) {
+            int confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir a moeda?\n" + "Sigla: " + sigla,
+                    "Confirmar Exclusão", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                if (moedaDao.deleteBySigla(sigla)) {
+                    JOptionPane.showMessageDialog(null, "Moeda excluída com sucesso.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Falha ao excluir a moeda.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Moeda não encontrada.");
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Erro ao acessar o banco de dados: " + e.getMessage());
+    }
+}
 }

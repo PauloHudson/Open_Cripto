@@ -56,6 +56,11 @@ public class Admin extends javax.swing.JFrame {
         getContentPane().add(Excluir_botao, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 150, 65));
 
         jButton9.setText("Excluir Cripto");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 150, 65));
 
         jButton10.setText("Saldo User");
@@ -100,6 +105,12 @@ public class Admin extends javax.swing.JFrame {
         CriptoCadastro cripto = new CriptoCadastro();
         cripto.setVisible(true);
     }//GEN-LAST:event_CadastrarCriptoActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        DeleteCripto p = new DeleteCripto();
+        p.setVisible(true);
+        
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -61,7 +61,7 @@ public class ExcuirUser extends javax.swing.JFrame {
     }//GEN-LAST:event_CPF_Usuario_ExcluirActionPerformed
 
     private void ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirActionPerformed
-           String usuario = CPF_Usuario_Excluir.getText().trim();  // Supondo que a entrada de texto seja reutilizada como 'usuario'
+           String usuario = CPF_Usuario_Excluir.getText().trim();  // 
             if (usuario.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, insira o identificador do usuário a ser excluído.");
             return;
