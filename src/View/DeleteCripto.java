@@ -29,16 +29,21 @@ public class DeleteCripto extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextFieldCriptoCampo = new javax.swing.JTextField();
         CriptoDeletar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 3, 24)); // NOI18N
         jLabel1.setText("Nome Da Cripto (Sigla):");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 37, 350, 33));
 
         jTextFieldCriptoCampo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCriptoCampoActionPerformed(evt);
             }
         });
+        getContentPane().add(jTextFieldCriptoCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 420, 90));
 
         CriptoDeletar.setText("Deletar");
         CriptoDeletar.addActionListener(new java.awt.event.ActionListener() {
@@ -46,34 +51,10 @@ public class DeleteCripto extends javax.swing.JFrame {
                 CriptoDeletarActionPerformed(evt);
             }
         });
+        getContentPane().add(CriptoDeletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 190, 90));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldCriptoCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(CriptoDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(62, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldCriptoCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(CriptoDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Image/Back_back.png"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -108,6 +89,7 @@ public class DeleteCripto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CriptoDeletar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField jTextFieldCriptoCampo;
     // End of variables declaration//GEN-END:variables
 }

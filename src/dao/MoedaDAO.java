@@ -36,10 +36,10 @@ public boolean existePorMoeda(String sigla) throws SQLException {
             }
         }
     }
-public boolean deleteBySigla(String sigla) throws SQLException {
-    String sql = "DELETE FROM moeda WHERE sigla = ?";
+public boolean deleteBySigla(String nome) throws SQLException {
+    String sql = "DELETE FROM moeda WHERE nome = ?";
     try (PreparedStatement statement = connection.prepareStatement(sql)) {
-        statement.setString(1, sigla);
+        statement.setString(1, nome);
         int rowsDeleted = statement.executeUpdate();
         return rowsDeleted > 0;
     } catch (SQLException e) {

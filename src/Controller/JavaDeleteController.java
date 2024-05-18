@@ -31,14 +31,14 @@ public void excluirUsuarioPorUsuario(String usuario) {
             JOptionPane.showMessageDialog(null, "Erro ao acessar o banco de dados: " + e.getMessage());
         }
     }
-public void excluirMoedaPorSigla(String sigla) {
-    try (java.sql.Connection conexao = new conexao().getConnection()) {
+public void excluirMoedaPorSigla(String nome) {
+    try (java.sql.Connection conexao = new conexao().getConnection()) { 
         MoedaDAO moedaDao = new MoedaDAO(conexao);
-        if (moedaDao.existePorMoeda(sigla)) {
-            int confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir a moeda?\n" + "Sigla: " + sigla,
+        if (moedaDao.existePorMoeda(nome)) {
+            int confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir a moeda?\n" + "Nome: " + nome,
                     "Confirmar Exclusão", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
-                if (moedaDao.deleteBySigla(sigla)) {
+                if (moedaDao.deleteBySigla(nome)) {
                     JOptionPane.showMessageDialog(null, "Moeda excluída com sucesso.");
                 } else {
                     JOptionPane.showMessageDialog(null, "Falha ao excluir a moeda.");

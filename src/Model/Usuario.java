@@ -10,6 +10,8 @@ public class Usuario {
     private String usuario;
     private String senha;
     private String nome;
+    private Double saldo;
+    
     
     //Get and SETTERS:
     public int getId() {
@@ -43,14 +45,32 @@ public class Usuario {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public Double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(Double saldo) {
+        this.saldo = saldo;
+    }
+    
+
+   
+    
+    public void depositar(Double valor) {
+        this.saldo += valor;
+    }
+    
     
     //Constructor
-    public Usuario(int id, String usuario, String senha, String nome) {
+    public Usuario(int id, String usuario, String senha, String nome, Double saldo) {
         this.id = id;
         this.usuario = usuario;
         this.senha = senha;
         this.nome = nome;
+        this.saldo = saldo; // Valor inicial do saldo
     }
+  
 
  
     
@@ -66,6 +86,7 @@ public class Usuario {
         this.usuario = usuario;
         this.senha = senha;
         this.nome = nome;
+        
     }
     
     

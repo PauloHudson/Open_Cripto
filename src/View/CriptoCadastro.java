@@ -36,17 +36,22 @@ public class CriptoCadastro extends javax.swing.JFrame {
         Cripto_Nome = new javax.swing.JTextField();
         Cripto_Valor = new javax.swing.JTextField();
         Cripto_Sigla = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
         jLabel1.setText("Valor:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 121, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
         jLabel2.setText("Sigla:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 121, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
         jLabel3.setText("Nome:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 121, -1));
 
         CadastrarCripto.setText("CADASTRAR CRIPTO");
         CadastrarCripto.addActionListener(new java.awt.event.ActionListener() {
@@ -54,43 +59,13 @@ public class CriptoCadastro extends javax.swing.JFrame {
                 CadastrarCriptoActionPerformed(evt);
             }
         });
+        getContentPane().add(CadastrarCripto, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 397, 240, 70));
+        getContentPane().add(Cripto_Nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 306, 47));
+        getContentPane().add(Cripto_Valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, 306, 47));
+        getContentPane().add(Cripto_Sigla, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 306, 47));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(CadastrarCripto, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Cripto_Valor, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Cripto_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Cripto_Sigla, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(102, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(Cripto_Sigla, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Cripto_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Cripto_Valor, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(CadastrarCripto, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
-        );
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Image/Back_back.png"))); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -140,5 +115,6 @@ public class CriptoCadastro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }
