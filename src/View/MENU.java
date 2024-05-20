@@ -26,7 +26,7 @@ public class MENU extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        SacarButton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -51,8 +51,13 @@ public class MENU extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 123, 66));
 
-        jButton2.setText("Sacar");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 123, 66));
+        SacarButton.setText("Sacar");
+        SacarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SacarButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(SacarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 123, 66));
 
         jButton3.setText("Extrato");
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 123, 66));
@@ -113,15 +118,20 @@ public class MENU extends javax.swing.JFrame {
         comprarCripto.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void SacarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SacarButtonActionPerformed
+        SaqueView p = new SaqueView(usuario);
+        p.setVisible(true);
+    }//GEN-LAST:event_SacarButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton SacarButton;
     private javax.swing.JButton Sair;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;

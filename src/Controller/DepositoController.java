@@ -9,8 +9,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DepositoController {
-    private final ComprarCripto view;
-    private final Usuario usuario;
+    protected final ComprarCripto view;
+    protected final Usuario usuario;
 
     public DepositoController(ComprarCripto view, Usuario usuario) {
         this.view = view;
@@ -40,7 +40,7 @@ public class DepositoController {
             }
 
             double saldoAtual = usuarioAtualizado.getSaldo();
-            usuario.setSaldo(saldoAtual - valorDepositar);
+            usuario.setSaldo(saldoAtual + valorDepositar); //valorao saldo
 
             usuarioDAO.atualizarSaldo(usuario);
 
