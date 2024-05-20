@@ -41,10 +41,11 @@ public boolean existePorMoeda(String sigla) throws SQLException {
         }
     }
 
-public boolean deleteBySigla(String nome) throws SQLException {
-    String sql = "DELETE FROM moeda WHERE nome = ?";
+public boolean deleteBySigla(String sigla) throws SQLException {
+    excluirColunaUsuario(sigla); // exluci a coluna de usuario
+    String sql = "DELETE FROM moeda WHERE sigla = ?";
     try (PreparedStatement statement = connection.prepareStatement(sql)) {
-        statement.setString(1, nome);
+        statement.setString(1, sigla);
         int rowsDeleted = statement.executeUpdate();
         return rowsDeleted > 0;
     } catch (SQLException e) {
@@ -53,11 +54,20 @@ public boolean deleteBySigla(String nome) throws SQLException {
     }
 }
 
+
 public void criarColunaUsuario(String siglaMoeda) throws SQLException {
     String sql = "ALTER TABLE usuario ADD COLUMN saldo_" + siglaMoeda + " DOUBLE PRECISION";
     try (PreparedStatement statement = connection.prepareStatement(sql)) {
         statement.executeUpdate();
     }
 }
+
+public void excluirColunaUsuario(String siglaMoeda) throws SQLException {
+    String sql = "ALTER TABLE usuario DROP COLUMN IF EXISTS saldo_" + siglaMoeda;
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        statement.executeUpdate();
+    }
+}
+
 
 }
