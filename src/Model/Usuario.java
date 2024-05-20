@@ -10,8 +10,11 @@ public class Usuario {
     private String usuario;
     private String senha;
     private String nome;
-    private Double saldo;
+    private double saldo;
+    
+  
 
+    
     public Usuario(String usuario, String senha, String nome, double saldo) {
         this.usuario = usuario;
         this.senha = senha;
@@ -57,7 +60,7 @@ public class Usuario {
         return saldo;
     }
 
-    public void setSaldo(Double saldo) {
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
     

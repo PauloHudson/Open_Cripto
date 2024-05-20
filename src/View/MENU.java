@@ -21,6 +21,7 @@ public class MENU extends javax.swing.JFrame {
         this.usuario = usuario;
         initComponents();
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -32,7 +33,7 @@ public class MENU extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         Sair = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        saldo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -81,8 +82,13 @@ public class MENU extends javax.swing.JFrame {
         jButton8.setText("Update Cotação");
         getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 275, 66));
 
-        jButton9.setText("Saldo");
-        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 123, 66));
+        saldo.setText("Saldo");
+        saldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saldoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(saldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 123, 66));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(169, 169, 169));
@@ -123,6 +129,11 @@ public class MENU extends javax.swing.JFrame {
         p.setVisible(true);
     }//GEN-LAST:event_SacarButtonActionPerformed
 
+    private void saldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saldoActionPerformed
+        SaldoView x = new SaldoView(usuario);
+        x.setVisible(true);
+    }//GEN-LAST:event_saldoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -136,12 +147,12 @@ public class MENU extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JButton saldo;
     // End of variables declaration//GEN-END:variables
 }

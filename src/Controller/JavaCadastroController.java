@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 
 
 public class JavaCadastroController {
+     
     private Cadastro view;
     //Estamos passando a view que o controllador vai iniciar.
     public JavaCadastroController(Cadastro view) {

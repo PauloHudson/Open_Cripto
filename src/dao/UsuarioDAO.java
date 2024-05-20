@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 
@@ -32,6 +34,7 @@ public class UsuarioDAO {
         this.connection = connection;
     }
     //Vai inserir os dados, tem de ser to tipo usuario(MODEL):
+
     
 public void insert(Usuario usuario) throws SQLException {
     // Verificar se o usuário já existe
@@ -149,9 +152,29 @@ public Usuario buscarPorUsuarioNOVO(String usuario) throws SQLException {
     return null;
 }
 
+public Map<String, Double> buscarTodosSaldos(String usuario) throws SQLException {
+        String sql = "SELECT * FROM usuario WHERE usuario = ?";
+        Map<String, Double> saldos = new HashMap<>();
 
-   
-    
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, usuario);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                        String columnName = resultSet.getMetaData().getColumnName(i);
+                        if (columnName.startsWith("saldo_")) {
+                            String moeda = columnName.substring(6); // esse vai remover o prefixo "saldo_"
+                            double saldo = resultSet.getDouble(columnName);
+                            saldos.put(moeda, saldo);
+                        }
+                    }
+                }
+            }
+        }
+
+        return saldos;
+    }
+
 };
 
 
