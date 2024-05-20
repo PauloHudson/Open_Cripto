@@ -11,6 +11,13 @@ public class Usuario {
     private String senha;
     private String nome;
     private Double saldo;
+
+    public Usuario(String usuario, String senha, String nome, double saldo) {
+        this.usuario = usuario;
+        this.senha = senha;
+        this.nome = nome;
+        this.saldo = saldo;
+    }
     
     
     //Get and SETTERS:

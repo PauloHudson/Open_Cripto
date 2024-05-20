@@ -18,14 +18,6 @@ public class DepositoController {
     }
 
     public void realizarDeposito() {
-         if (usuario.getSaldo() == null) {
-            usuario.setSaldo(0.0);
-        }
-        Double valorDeposito = Double.parseDouble(view.getValorDepositar().getText());
-
-        // Realizar o depósito
-        //usuario.depositar(valorDeposito);
-        
         String valorDepositarTexto = view.getValorDepositar().getText();
         String senha = new String(view.getSenhaField().getPassword());
 
@@ -37,10 +29,19 @@ public class DepositoController {
                 return;
             }
 
-            usuario.setSaldo(usuario.getSaldo() + valorDepositar);
-
             Connection conexao = new conexao().getConnection();
             UsuarioDAO usuarioDAO = new UsuarioDAO(conexao);
+
+            // Carregar o saldo atual do usuário do banco de dados
+            Usuario usuarioAtualizado = usuarioDAO.buscarPorUsuarioNOVO(usuario.getUsuario());
+            if (usuarioAtualizado == null) {
+                JOptionPane.showMessageDialog(view, "Usuário não encontrado!");
+                return;
+            }
+
+            double saldoAtual = usuarioAtualizado.getSaldo();
+            usuario.setSaldo(saldoAtual - valorDepositar);
+
             usuarioDAO.atualizarSaldo(usuario);
 
             JOptionPane.showMessageDialog(view, "Depósito realizado com sucesso!");

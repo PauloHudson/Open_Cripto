@@ -131,6 +131,25 @@ public void atualizarSaldo(Usuario usuario) throws SQLException {
         }
     }
 
+public Usuario buscarPorUsuarioNOVO(String usuario) throws SQLException {
+    String sql = "SELECT * FROM usuario WHERE usuario = ?";
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        statement.setString(1, usuario);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                return new Usuario(
+                    resultSet.getString("usuario"),
+                    resultSet.getString("senha"),
+                    resultSet.getString("nome"),
+                    resultSet.getDouble("saldo") // Certifique-se de que o saldo está sendo carregado
+                );
+            }
+        }
+    }
+    return null;
+}
+
+
    
     
 };
