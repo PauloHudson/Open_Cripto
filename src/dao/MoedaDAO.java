@@ -14,18 +14,22 @@ public class MoedaDAO {
     }
 
 public void insertMoeda(Moeda moeda) throws SQLException {
-        if (existePorMoeda(moeda.getSigla())) {
-            throw new SQLException("Moeda Já cadastrada");
-        }
-
-        String sql = "INSERT INTO moeda(sigla, nome, valor) VALUES (?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, moeda.getSigla());
-            statement.setString(2, moeda.getNome());
-            statement.setDouble(3, moeda.getValor());
-            statement.execute();
-        }
+    if (existePorMoeda(moeda.getSigla())) {
+        throw new SQLException("Moeda já cadastrada");
     }
+
+    String sql = "INSERT INTO moeda(sigla, nome, valor) VALUES (?, ?, ?)";
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        statement.setString(1, moeda.getSigla());
+        statement.setString(2, moeda.getNome());
+        statement.setDouble(3, moeda.getValor());
+        statement.execute();
+    }
+
+    //cria a coluna na usuario quando for criada a cripto nova
+    criarColunaUsuario(moeda.getSigla());
+}
+
 
 public boolean existePorMoeda(String sigla) throws SQLException {
         String sql = "SELECT * FROM moeda WHERE sigla = ?";
@@ -36,6 +40,7 @@ public boolean existePorMoeda(String sigla) throws SQLException {
             }
         }
     }
+
 public boolean deleteBySigla(String nome) throws SQLException {
     String sql = "DELETE FROM moeda WHERE nome = ?";
     try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -45,6 +50,13 @@ public boolean deleteBySigla(String nome) throws SQLException {
     } catch (SQLException e) {
         e.printStackTrace();
         throw new RuntimeException("Erro ao excluir a moeda", e);
+    }
+}
+
+public void criarColunaUsuario(String siglaMoeda) throws SQLException {
+    String sql = "ALTER TABLE usuario ADD COLUMN saldo_" + siglaMoeda + " DOUBLE PRECISION";
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        statement.executeUpdate();
     }
 }
 
