@@ -22,6 +22,7 @@ public class CriptoCadastro extends javax.swing.JFrame {
     public CriptoCadastro() {
         initComponents();
         controller = new JavaCadastroCripto(this);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
    

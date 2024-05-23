@@ -15,6 +15,7 @@ public class Extrato extends javax.swing.JFrame {
      */
     public Extrato() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**

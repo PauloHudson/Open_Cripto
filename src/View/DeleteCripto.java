@@ -19,6 +19,7 @@ public class DeleteCripto extends javax.swing.JFrame {
      */
     public DeleteCripto() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
    

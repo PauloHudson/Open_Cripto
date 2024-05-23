@@ -26,28 +26,43 @@ public class SaldoView extends javax.swing.JFrame {
         
         exibirInformacoesUsuario();
         exibirSaldos();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        
     }
 
-    private void exibirInformacoesUsuario() {
-        jLabel1.setText("Nome: " + usuario.getNome());
-        jLabel2.setText("CPF: " + usuario.getUsuario());
-        jLabel4.setText("SALDO BRL: " + usuario.getSaldo());
-    }
-
-    private void exibirSaldos() {
-        try {
-            Map<String, Double> saldos = usuarioDAO.buscarTodosSaldos(usuario.getUsuario());
-            StringBuilder saldoInfo = new StringBuilder();
-
-            for (Map.Entry<String, Double> entry : saldos.entrySet()) {
-                saldoInfo.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
-            }
-
-            jLabel3.setText(saldoInfo.toString());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao exibir saldos: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+   private void exibirInformacoesUsuario() {
+    try {
+        Usuario usuarioAtualizado = usuarioDAO.buscarPorUsuarioNOVO(usuario.getUsuario());
+        if (usuarioAtualizado != null) {
+  
+            jLabel1.setText("Nome: " + usuarioAtualizado.getNome());
+            jLabel2.setText("CPF: " + usuarioAtualizado.getUsuario());
+            jLabel4.setText("SALDO BRL: " + usuarioAtualizado.getSaldo());
+        } else {
+            System.out.println("Usuário não encontrado.");
         }
+    } catch (SQLException e) {
+        System.out.println("Erro ao buscar usuário: " + e.getMessage());
+        e.printStackTrace();
     }
+}
+
+  private void exibirSaldos() {
+    try {
+        Map<String, Double> saldos = usuarioDAO.buscarTodosSaldos(usuario.getUsuario());
+        StringBuilder saldoInfo = new StringBuilder("<html>");
+
+        for (Map.Entry<String, Double> entry : saldos.entrySet()) {
+            saldoInfo.append(entry.getKey()).append(": ").append(entry.getValue()).append("<br>");
+        }
+
+        saldoInfo.append("</html>");
+        jLabel3.setText(saldoInfo.toString());
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Erro ao exibir saldos: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+}
+  
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -74,10 +89,13 @@ public class SaldoView extends javax.swing.JFrame {
                 .addGap(104, 104, 104)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(161, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(139, 139, 139))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,8 +107,8 @@ public class SaldoView extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();

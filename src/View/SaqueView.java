@@ -21,7 +21,8 @@ public class SaqueView extends javax.swing.JFrame {
     public SaqueView(Usuario usuario) {
         this.usuario = usuario;
         initComponents();
-        this.controller = new SaqueController(this, usuario); 
+        this.controller = new SaqueController(this, usuario);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
 

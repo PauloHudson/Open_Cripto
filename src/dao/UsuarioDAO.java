@@ -134,49 +134,64 @@ public void atualizarSaldo(Usuario usuario) throws SQLException {
         }
     }
 
+
+//ele está a dar uma busac no banco pelos usuarios, apartir dele conseguimos fazer a busca na funcao
 public Usuario buscarPorUsuarioNOVO(String usuario) throws SQLException {
     String sql = "SELECT * FROM usuario WHERE usuario = ?";
     try (PreparedStatement statement = connection.prepareStatement(sql)) {
         statement.setString(1, usuario);
         try (ResultSet resultSet = statement.executeQuery()) {
             if (resultSet.next()) {
+         
+
+                double saldo = resultSet.getDouble("saldo");
+               
+
                 return new Usuario(
                     resultSet.getString("usuario"),
                     resultSet.getString("senha"),
                     resultSet.getString("nome"),
-                    resultSet.getDouble("saldo") // Certifique-se de que o saldo está sendo carregado
+                    saldo 
                 );
+            } else {
+                System.out.println("Usuário não encontrado.");
             }
         }
+    } catch (SQLException e) {
+        System.out.println("Erro ao buscar usuário: " + e.getMessage());
+        throw e;
     }
     return null;
 }
 
-public Map<String, Double> buscarTodosSaldos(String usuario) throws SQLException {
-        String sql = "SELECT * FROM usuario WHERE usuario = ?";
-        Map<String, Double> saldos = new HashMap<>();
 
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, usuario);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                        String columnName = resultSet.getMetaData().getColumnName(i);
-                        if (columnName.startsWith("saldo_")) {
-                            String moeda = columnName.substring(6); // esse vai remover o prefixo "saldo_"
-                            double saldo = resultSet.getDouble(columnName);
-                            saldos.put(moeda, saldo);
-                        }
+
+public Map<String, Double> buscarTodosSaldos(String usuario) throws SQLException {
+    String sql = "SELECT * FROM usuario WHERE usuario = ?";
+    Map<String, Double> saldos = new HashMap<>();
+
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        statement.setString(1, usuario);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                    String columnName = resultSet.getMetaData().getColumnName(i);
+
+                    if (columnName.startsWith("saldo_")) {
+                        String moeda = columnName.substring(6); // Remove o prefixo "saldo_"
+                        double saldo = resultSet.getDouble(columnName);
+                        saldos.put(moeda, saldo);
+                    
                     }
                 }
             }
         }
-
-        return saldos;
     }
 
-};
+    return saldos;
+}
 
 
 
+}
 

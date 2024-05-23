@@ -5,6 +5,9 @@
 package View;
 
 import Model.Usuario;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -122,6 +125,7 @@ public class MENU extends javax.swing.JFrame {
 
         ComprarCripto comprarCripto = new ComprarCripto(usuario);
         comprarCripto.setVisible(true);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void SacarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SacarButtonActionPerformed
@@ -130,7 +134,12 @@ public class MENU extends javax.swing.JFrame {
     }//GEN-LAST:event_SacarButtonActionPerformed
 
     private void saldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saldoActionPerformed
-        SaldoView x = new SaldoView(usuario);
+        SaldoView x = null;
+        try {
+            x = new SaldoView(usuario);
+        } catch (SQLException ex) {
+            Logger.getLogger(MENU.class.getName()).log(Level.SEVERE, null, ex);
+        }
         x.setVisible(true);
     }//GEN-LAST:event_saldoActionPerformed
 

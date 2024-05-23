@@ -21,6 +21,7 @@ public class ComprarCripto extends javax.swing.JFrame {
         this.usuario = usuario;
         this.depositoController = new DepositoController(this, usuario);
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**

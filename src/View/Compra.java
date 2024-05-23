@@ -15,6 +15,7 @@ public class Compra extends javax.swing.JFrame {
      */
     public Compra() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**

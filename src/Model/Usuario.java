@@ -56,7 +56,7 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public Double getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
 
@@ -64,21 +64,21 @@ public class Usuario {
         this.saldo = saldo;
     }
     
+    
 
    
     
-    public void depositar(Double valor) {
+    public void depositar(double valor) {
         this.saldo += valor;
     }
     
-    
-    //Constructor
-    public Usuario(int id, String usuario, String senha, String nome, Double saldo) {
+ 
+    public Usuario(int id, String usuario, String senha, String nome, double saldo) {
         this.id = id;
         this.usuario = usuario;
         this.senha = senha;
         this.nome = nome;
-        this.saldo = saldo; // Valor inicial do saldo
+        this.saldo = saldo; 
     }
   
 
