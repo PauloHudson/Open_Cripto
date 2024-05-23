@@ -64,6 +64,11 @@ public class Admin extends javax.swing.JFrame {
         getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 150, 65));
 
         jButton10.setText("Saldo User");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 150, 65));
 
         jButton11.setText("Extrato User");
@@ -111,6 +116,11 @@ public class Admin extends javax.swing.JFrame {
         p.setVisible(true);
         
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        SaldoAdmin p = new SaldoAdmin();
+        p.setVisible(true);
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
      * @param args the command line arguments

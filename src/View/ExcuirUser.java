@@ -10,6 +10,7 @@ public class ExcuirUser extends javax.swing.JFrame {
 
     public ExcuirUser() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     
@@ -68,7 +69,7 @@ public class ExcuirUser extends javax.swing.JFrame {
             }
             JavaDeleteController deleteController = new JavaDeleteController();
             deleteController.excluirUsuarioPorUsuario(usuario);
-            setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+            
     }//GEN-LAST:event_ExcluirActionPerformed
 
     /**
