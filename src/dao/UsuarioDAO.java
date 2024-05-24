@@ -125,7 +125,7 @@ public boolean deleteByUsuario(String usuario) throws SQLException {
     }
 }
 
-public void atualizarSaldo(Usuario usuario) throws SQLException {
+  public void atualizarSaldo(Usuario usuario) throws SQLException {
         String sql = "UPDATE usuario SET saldo = ? WHERE usuario = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setDouble(1, usuario.getSaldo());

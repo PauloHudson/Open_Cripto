@@ -46,7 +46,7 @@ public class MENU extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         SacarButton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        ComprarCripto = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         Sair = new javax.swing.JButton();
         AtualizarCotacaoButton = new javax.swing.JButton();
@@ -80,8 +80,13 @@ public class MENU extends javax.swing.JFrame {
         jButton3.setText("Extrato");
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 123, 66));
 
-        jButton5.setText("Comprar Cripto");
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 123, 66));
+        ComprarCripto.setText("Comprar Cripto");
+        ComprarCripto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComprarCriptoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ComprarCripto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 123, 66));
 
         jButton6.setText("Vender Cripto");
         getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 123, 66));
@@ -167,15 +172,20 @@ public class MENU extends javax.swing.JFrame {
 
     }//GEN-LAST:event_AtualizarCotacaoButtonActionPerformed
 
+    private void ComprarCriptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprarCriptoActionPerformed
+        Compra p = new Compra(usuario);
+        p.setVisible(true);
+    }//GEN-LAST:event_ComprarCriptoActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AtualizarCotacaoButton;
+    private javax.swing.JButton ComprarCripto;
     private javax.swing.JButton SacarButton;
     private javax.swing.JButton Sair;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
