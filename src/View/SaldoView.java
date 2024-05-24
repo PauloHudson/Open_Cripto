@@ -9,6 +9,11 @@ import java.sql.SQLException;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author paulo
+ */
+
 
 public class SaldoView extends javax.swing.JFrame {
     private final Usuario usuario;

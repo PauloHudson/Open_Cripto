@@ -1,6 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+
+/**
+ *
+ * @author paulo
  */
 package View;
 import Controller.DepositoController;
@@ -24,10 +25,7 @@ public class ComprarCripto extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
-    /**
-     * Creates new form ComprarCripto
-     */
-    
+   
 
    
     @SuppressWarnings("unchecked")

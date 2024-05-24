@@ -4,26 +4,40 @@
  */
 package View;
 
+import Controller.AtualizarCotacao;
 import Model.Usuario;
+import dao.MoedaDAO;
+import dao.UsuarioDAO;
+import dao.conexao;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javax.swing.JOptionPane;
 /**
  *
  * @author paulo
  */
 public class MENU extends javax.swing.JFrame {
     
-
-
-            
+ 
+    private MoedaDAO moedaDAO;
     private Usuario usuario;
+    private Connection connection;
 
-    public MENU(Usuario usuario) {
+    public MENU(Usuario usuario) throws SQLException {
         this.usuario = usuario;
         initComponents();
+        
+    conexao conexao = new conexao();
+    Connection connection = conexao.getConnection();
+        
+     //this.connection = conexao.getConnection();
+     this.moedaDAO = new MoedaDAO(connection);
     }
+
+     
+  
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -35,7 +49,7 @@ public class MENU extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         Sair = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        AtualizarCotacaoButton = new javax.swing.JButton();
         saldo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -82,8 +96,13 @@ public class MENU extends javax.swing.JFrame {
         });
         getContentPane().add(Sair, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 290, 123, 66));
 
-        jButton8.setText("Update Cotação");
-        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 275, 66));
+        AtualizarCotacaoButton.setText("Update Cotação");
+        AtualizarCotacaoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtualizarCotacaoButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AtualizarCotacaoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 275, 66));
 
         saldo.setText("Saldo");
         saldo.addActionListener(new java.awt.event.ActionListener() {
@@ -143,19 +162,21 @@ public class MENU extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_saldoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void AtualizarCotacaoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarCotacaoButtonActionPerformed
+        AtualizarCotacao.atualizarCotacao(moedaDAO);
 
+    }//GEN-LAST:event_AtualizarCotacaoButtonActionPerformed
+
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AtualizarCotacaoButton;
     private javax.swing.JButton SacarButton;
     private javax.swing.JButton Sair;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

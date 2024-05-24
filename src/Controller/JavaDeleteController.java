@@ -6,6 +6,10 @@ import dao.UsuarioDAO;
 import dao.conexao;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+/**
+ *
+ * @author paulo
+ */
 
 public class JavaDeleteController {
 

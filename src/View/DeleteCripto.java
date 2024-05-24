@@ -7,10 +7,9 @@ package View;
 import Controller.JavaDeleteController;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 /**
  *
- * @author brunapaz
+ * @author paulo
  */
 public class DeleteCripto extends javax.swing.JFrame {
 

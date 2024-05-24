@@ -7,7 +7,10 @@ import dao.UsuarioDAO;
 import dao.conexao;
 import java.sql.Connection;
 import java.sql.SQLException;
-
+/**
+ *
+ * @author paulo
+ */
 public class DepositoController {
     protected final ComprarCripto view;
     protected final Usuario usuario;

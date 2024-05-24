@@ -5,7 +5,10 @@ import Controller.JavaDeleteController;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-
+/**
+ *
+ * @author paulo
+ */
 public class ExcuirUser extends javax.swing.JFrame {
 
     public ExcuirUser() {

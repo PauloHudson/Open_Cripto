@@ -10,13 +10,18 @@ import java.sql.SQLException;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author paulo
+ */
+
 public class SaldoAdmin extends javax.swing.JFrame {
     private UsuarioDAO usuarioDAO;
  
     public SaldoAdmin() {
         initComponents();
         
-        // Configuração da conexão e DAO
+        // configuracao da conexão e DAO....
         try {
             conexao conexao = new conexao();
             Connection connection = conexao.getConnection();

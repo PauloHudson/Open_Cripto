@@ -8,6 +8,11 @@ import dao.conexao;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ *
+ * @author paulo
+ */
+
 public class SaqueController extends DepositoController {
     private final SaqueView view;
 

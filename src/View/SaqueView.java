@@ -14,6 +14,11 @@ import Controller.SaqueController;
 import Model.Usuario;
 import javax.swing.*;
 
+/**
+ *
+ * @author paulo
+ */
+
 public class SaqueView extends javax.swing.JFrame {
     private Usuario usuario;
     private SaqueController controller;
