@@ -47,7 +47,7 @@ public class MENU extends javax.swing.JFrame {
         SacarButton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         ComprarCripto = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        Venda = new javax.swing.JButton();
         Sair = new javax.swing.JButton();
         AtualizarCotacaoButton = new javax.swing.JButton();
         saldo = new javax.swing.JButton();
@@ -88,8 +88,13 @@ public class MENU extends javax.swing.JFrame {
         });
         getContentPane().add(ComprarCripto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 123, 66));
 
-        jButton6.setText("Vender Cripto");
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 123, 66));
+        Venda.setText("Vender Cripto");
+        Venda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VendaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Venda, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 123, 66));
 
         Sair.setBackground(new java.awt.Color(255, 105, 97));
         Sair.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -177,6 +182,11 @@ public class MENU extends javax.swing.JFrame {
         p.setVisible(true);
     }//GEN-LAST:event_ComprarCriptoActionPerformed
 
+    private void VendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VendaActionPerformed
+        Venda v = new Venda(usuario);
+        v.setVisible(true);
+    }//GEN-LAST:event_VendaActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -184,9 +194,9 @@ public class MENU extends javax.swing.JFrame {
     private javax.swing.JButton ComprarCripto;
     private javax.swing.JButton SacarButton;
     private javax.swing.JButton Sair;
+    private javax.swing.JButton Venda;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

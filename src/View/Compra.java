@@ -55,9 +55,11 @@ public class Compra extends javax.swing.JFrame {
     }
 
     private void realizarCompra() throws SQLException {
+        //seleciona a sigla da cripto
         String siglaCripto = selectCripto.getText();
+        //seleciona o valor da cripto
         double valorCompra = Double.parseDouble(valorTxt.getText());
-        
+        //seleciona o campo senha.
         String senha = new String(SenhaField.getPassword());
 
         try (Connection connection = new conexao().getConnection()) {
@@ -72,8 +74,11 @@ public class Compra extends javax.swing.JFrame {
 
             // Busca a moeda desejada
             List<Moeda> moedas = moedaDAO.buscarTodasMoedas();
+            
             Moeda moedaDesejada = null;
+            
             for (Moeda moeda : moedas) {
+                //faz um get para obter a sigla e ver se ela é igual a do inputext; ignorando se é maiuscula métoto top.
                 if (moeda.getSigla().equalsIgnoreCase(siglaCripto)) {
                     moedaDesejada = moeda;
                     break;
@@ -85,12 +90,7 @@ public class Compra extends javax.swing.JFrame {
                 return;
             }
 
-            // Calcula o valor total da compra em BRL
-            //double valorTotalCompra = valorCompra * moedaDesejada.getValor();
-            //System.out.println(valorTotalCompra);
-            // Verifica se o saldo é suficiente
-            System.out.println(valorCompra);
-            System.out.println(usuarioLogado.getSaldo());
+           //valor que digitei para comprar for maior que o saldo, então ele retorna error.
             if (valorCompra > usuarioLogado.getSaldo()) {
                 JOptionPane.showMessageDialog(null, "Saldo insuficiente.");
                 return;
@@ -103,7 +103,12 @@ public class Compra extends javax.swing.JFrame {
             // Atualiza o saldo da criptomoeda
             Map<String, Double> saldos = usuarioDAO.buscarTodosSaldos(usuarioLogado.getUsuario());
             double saldoCripto = saldos.getOrDefault(siglaCripto, 0.0);
+            
+            
+            //valor Que for a ser colocado, vai ser então pelo valor convertido do preço da moeda
             saldoCripto += valorCompra / moedaDesejada.getValor();
+            
+            //saldoCripto -= valorCompra * moedaDesejada.getValor();
 
             String sql = "UPDATE usuario SET saldo_" + siglaCripto + " = ? WHERE usuario = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
