@@ -22,6 +22,8 @@ public class MoedaDAO {
         this.connection = connection;
     }
 
+    /** A função insert tem como foco inserir as informações das criptos no nosso  banco de dados e para isso, verficamos primeiramente a existência 
+     do cadastro da criptomoeda para depois usar o comando intert do SQL para fazer a inserção */
 public void insertMoeda(Moeda moeda) throws SQLException {
     if (existePorMoeda(moeda.getSigla())) {
         throw new SQLException("Moeda já cadastrada");
@@ -39,7 +41,9 @@ public void insertMoeda(Moeda moeda) throws SQLException {
     criarColunaUsuario(moeda.getSigla());
 }
 
-
+/** A função "existePorMoeda" faz a procura do da cripto escolhida na tabela do banco de dados.
+ Para isso foi necessário o comando "SELECT" do SQL que selciona todas as colunas da tabela "moeda", especifíca que os dados serão selecionados da coluna "sigla"  
+  e faz um filtro que busca por um valor específico*/
 public boolean existePorMoeda(String sigla) throws SQLException {
         String sql = "SELECT * FROM moeda WHERE sigla = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -50,6 +54,9 @@ public boolean existePorMoeda(String sigla) throws SQLException {
         }
     }
 
+/**Para excluir uma criptomoeda, foi necessário usar o comando DELETE do SQL.
+ * Mais uma vez, é feita seleção dos dados da tabela "moeda", buscando um valor específico na coluna "sigla" para efetuar a exclusão
+ */
 public boolean deleteBySigla(String sigla) throws SQLException {
     excluirColunaUsuario(sigla); // exluci a coluna de usuario
     String sql = "DELETE FROM moeda WHERE sigla = ?";
@@ -63,7 +70,9 @@ public boolean deleteBySigla(String sigla) throws SQLException {
     }
 }
 
-
+/** Essa função realiza a adição de uma coluna na tabela "usuario" a partir da criação de uma criptomoeda.
+ *Isso é possível com o coamando ADD COLUMN e na nossa função o nome da coluna recebe o prefixo da sigla criada para a criptomoeda
+ */
 public void criarColunaUsuario(String siglaMoeda) throws SQLException {
     String sql = "ALTER TABLE usuario ADD COLUMN saldo_" + siglaMoeda + " DOUBLE PRECISION";
     try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -71,6 +80,9 @@ public void criarColunaUsuario(String siglaMoeda) throws SQLException {
     }
 }
 
+/** A função "excluirColunaUsuario" faz o oposto da anterior. Ao chegar a existência de uma coluna de saldo de uma criptomoeda específica
+ * ela faz a exclusão dessa coluna. Esse caso ocorre quando há a exclusão de uma criptomoeda
+ */
 public void excluirColunaUsuario(String siglaMoeda) throws SQLException {
     String sql = "ALTER TABLE usuario DROP COLUMN IF EXISTS saldo_" + siglaMoeda;
     try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -78,7 +90,8 @@ public void excluirColunaUsuario(String siglaMoeda) throws SQLException {
     }
 }
 
-  
+  /** Essa função faz a seleção da tabela "moeda" e retorna a lista com todos os objetos do tipo"Moeda" representados, como 
+   sua sigla, nome e valor.*/
     public List<Moeda> buscarTodasMoedas() throws SQLException {
         String sql = "SELECT * FROM moeda";
         List<Moeda> moedas = new ArrayList<>();
@@ -97,7 +110,11 @@ public void excluirColunaUsuario(String siglaMoeda) throws SQLException {
         return moedas;
     }
 
-    // Método para atualizar a cotação de todas as moedas
+/** A função a seguir tem o propósito de atualizar as contações das criptomoedas. Para isso
+ * um objeto do tipo "Random" gera números aleatórios e para cada objeto do tipo "Moeda", é obtido seu valor atual
+ * para o cálculo da variação que vai de +5% a -5%. 
+ * Depois disso, o valor final da moeda é atualizado com o comando "UPDATE" do SQL que atribui a atualização na tabela "moeda". 
+ */
     public void atualizarCotacoes() throws SQLException {
         List<Moeda> moedas = buscarTodasMoedas();
         Random random = new Random();
