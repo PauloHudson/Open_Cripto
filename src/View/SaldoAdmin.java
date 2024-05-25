@@ -117,14 +117,7 @@ public class SaldoAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarSaldoActionPerformed
 
    
-    public static void main(String args[]) {
- 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SaldoAdmin().setVisible(true);
-            }
-        });
-    }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Fundo;

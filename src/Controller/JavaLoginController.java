@@ -1,4 +1,11 @@
 package Controller;
+/**
+ * This class handles user login operations.
+ * It validates user credentials and manages user sessions.
+ * 
+ * @version 1.0
+ * @since 2024-05-25
+ */
 
 import Model.Usuario;
 import View.Admin;
