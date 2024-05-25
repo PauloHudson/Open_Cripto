@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -36,13 +37,14 @@ public class SaldoView extends javax.swing.JFrame {
     }
 
    private void exibirInformacoesUsuario() {
+    DecimalFormat df = new DecimalFormat("#.##");
     try {
         Usuario usuarioAtualizado = usuarioDAO.buscarPorUsuarioNOVO(usuario.getUsuario());
         if (usuarioAtualizado != null) {
   
             jLabel1.setText("Nome: " + usuarioAtualizado.getNome());
             jLabel2.setText("CPF: " + usuarioAtualizado.getUsuario());
-            jLabel4.setText("SALDO BRL: " + usuarioAtualizado.getSaldo());
+            jLabel4.setText("SALDO BRL: " + df.format(usuarioAtualizado.getSaldo()));
         } else {
             System.out.println("Usuário não encontrado.");
         }
@@ -53,12 +55,13 @@ public class SaldoView extends javax.swing.JFrame {
     }
 
   private void exibirSaldos() {
+    DecimalFormat df = new DecimalFormat("#.##");
     try {
         Map<String, Double> saldos = usuarioDAO.buscarTodosSaldos(usuario.getUsuario());
         StringBuilder saldoInfo = new StringBuilder("<html>");
 
         for (Map.Entry<String, Double> entry : saldos.entrySet()) {
-            saldoInfo.append(entry.getKey()).append(": ").append(entry.getValue()).append("<br>");
+            saldoInfo.append(entry.getKey()).append(": ").append(df.format(entry.getValue())).append("<br>");
         }
 
         saldoInfo.append("</html>");

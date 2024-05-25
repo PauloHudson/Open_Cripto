@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.text.DecimalFormat;
 
 
 /**
@@ -33,19 +34,23 @@ public class Compra extends javax.swing.JFrame {
     }
 
     private void atualizarSaldos() {
+        DecimalFormat df = new DecimalFormat("#.##");
+        
+        
+        
         try (Connection connection = new conexao().getConnection()) {
             UsuarioDAO usuarioDAO = new UsuarioDAO(connection);
             MoedaDAO moedaDAO = new MoedaDAO(connection);
 
             // Atualiza o saldo BRL (real)
             usuarioLogado = usuarioDAO.buscarPorUsuarioNOVO(usuarioLogado.getUsuario());
-            jLabel6.setText("SALDO BRL: " + usuarioLogado.getSaldo());
+            jLabel6.setText("SALDO BRL R$ : " + df.format(usuarioLogado.getSaldo()));
 
             // Atualiza as cotações das criptomoedas na interface
             List<Moeda> moedas = moedaDAO.buscarTodasMoedas();
             StringBuilder cotacoes = new StringBuilder("<html>");
             for (Moeda moeda : moedas) {
-                cotacoes.append(moeda.getSigla()).append(": ").append(moeda.getValor()).append("<br>");
+                cotacoes.append(moeda.getSigla()).append(": ").append(df.format(moeda.getValor())).append("<br>");
             }
             cotacoes.append("</html>");
             jLabel2.setText(cotacoes.toString());
@@ -151,7 +156,8 @@ public class Compra extends javax.swing.JFrame {
         jLabel1.setText("Compra");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 152, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font(".AppleSystemUIFont", 3, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(250, 250, 250));
         jLabel4.setText("Valor Comprar: ");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, 27));
         getContentPane().add(selectCripto, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 261, 32));
@@ -163,20 +169,25 @@ public class Compra extends javax.swing.JFrame {
                 btFinalizarCompraActionPerformed(evt);
             }
         });
-        getContentPane().add(btFinalizarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, 240, 46));
+        getContentPane().add(btFinalizarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, 240, 46));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Sigla Cripto");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
+        jLabel5.setFont(new java.awt.Font(".AppleSystemUIFont", 3, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(250, 250, 250));
+        jLabel5.setText("Sigla Cripto:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, -1, -1));
 
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 380, 240));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 380, 200));
 
+        jLabel3.setFont(new java.awt.Font(".AppleSystemUIFont", 3, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(250, 250, 250));
         jLabel3.setText("Confirme Sua Senha:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, -1, 50));
-        getContentPane().add(SenhaField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 420, 240, 30));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, -1, 50));
+        getContentPane().add(SenhaField, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, 220, 30));
 
-        jLabel6.setText("SALDO BRL:");
+        jLabel6.setFont(new java.awt.Font(".AppleSystemUIFont", 3, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(250, 250, 250));
+        jLabel6.setText("SALDO BRL R$:");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, -1, 20));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Image/Back_back.png"))); // NOI18N
