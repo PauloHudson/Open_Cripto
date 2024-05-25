@@ -48,7 +48,7 @@ public class SaqueView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Sacar_button.setText("Depositar");
+        Sacar_button.setText("Sacar");
         Sacar_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Sacar_buttonActionPerformed(evt);

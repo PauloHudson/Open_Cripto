@@ -222,7 +222,7 @@ private void atualizarSaldos() {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(250, 250, 250));
-        jLabel9.setText("Valor Vender");
+        jLabel9.setText("Quantidade");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, 30));
 
         jLabel8.setForeground(new java.awt.Color(250, 250, 250));

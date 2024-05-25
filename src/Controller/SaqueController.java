@@ -32,7 +32,7 @@ public class SaqueController extends DepositoController {
                 return;
             }
 
-            if (usuario.getSaldo() < valorSaque) {
+            if (valorSaque > usuario.getSaldo()) {
                 JOptionPane.showMessageDialog(view, "Saldo insuficiente!");
                 return;
             }
