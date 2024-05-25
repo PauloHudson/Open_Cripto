@@ -21,6 +21,10 @@ public class Usuario {
         this.nome = nome;
         this.saldo = saldo;
     }
+
+    public Usuario() {
+    }
+    
     
     
     //Get and SETTERS:
