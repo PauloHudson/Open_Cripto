@@ -154,7 +154,7 @@ private void atualizarSaldos() {
               condicao, 
               tipoMoeda, 
               cotacao, 
-              0, 
+              3, 
               valorFinal, 
               usuarioLogado.getUsuario(), 
               valorVenda 
