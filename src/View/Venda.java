@@ -27,7 +27,7 @@ public class Venda extends javax.swing.JFrame {
     private Usuario usuarioLogado;
 
     public Venda(Usuario usuarioLogado) {
-        exibirSaldos();
+
         this.usuarioLogado = usuarioLogado;
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -35,27 +35,48 @@ public class Venda extends javax.swing.JFrame {
     }
 
     private void atualizarSaldos() {
-        try (Connection connection = new conexao().getConnection()) {
-            UsuarioDAO usuarioDAO = new UsuarioDAO(connection);
-            MoedaDAO moedaDAO = new MoedaDAO(connection);
+    Connection connection = null;
+    try {
+        connection = new conexao().getConnection();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(connection);
+        MoedaDAO moedaDAO = new MoedaDAO(connection);
 
-            // Atualiza o saldo BRL (real)
-            usuarioLogado = usuarioDAO.buscarPorUsuarioNOVO(usuarioLogado.getUsuario());
-            jLabel6.setText("SALDO BRL: " + usuarioLogado.getSaldo());
+        // atualiza saldo brl
+        usuarioLogado = usuarioDAO.buscarPorUsuarioNOVO(usuarioLogado.getUsuario());
+        jLabel6.setText("SALDO BRL: " + usuarioLogado.getSaldo());
 
-            // Atualiza as cotações das criptomoedas na interface
-            List<Moeda> moedas = moedaDAO.buscarTodasMoedas();
-            StringBuilder cotacoes = new StringBuilder("<html>");
-            for (Moeda moeda : moedas) {
-                cotacoes.append(moeda.getSigla()).append(": ").append(moeda.getValor()).append("<br>");
+        // atualiza a cotacao
+        List<Moeda> moedas = moedaDAO.buscarTodasMoedas();
+        StringBuilder cotacoes = new StringBuilder("<html>");
+        for (Moeda moeda : moedas) {
+            cotacoes.append(moeda.getSigla()).append(": ").append(moeda.getValor()).append("<br>");
+        }
+        cotacoes.append("</html>");
+        jLabel2.setText(cotacoes.toString());
+
+        //para atualizar o saldo das criptos
+        Map<String, Double> saldos = usuarioDAO.buscarTodosSaldos(usuarioLogado.getUsuario());
+        StringBuilder saldoInfo = new StringBuilder("<html>");
+        for (Map.Entry<String, Double> entry : saldos.entrySet()) {
+            saldoInfo.append(entry.getKey()).append(": ").append(entry.getValue()).append("<br>");
+        }
+        saldoInfo.append("</html>");
+        SALDOCRIPTO.setText(saldoInfo.toString());
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Erro ao atualizar saldos: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    } finally {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
-            cotacoes.append("</html>");
-            jLabel2.setText(cotacoes.toString());
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
+    }
+
 
     private void RealizarVenda() throws SQLException {
     // Seleciona a sigla da cripto
@@ -126,39 +147,7 @@ public class Venda extends javax.swing.JFrame {
         throw new RuntimeException("Erro ao realizar a venda", e);
     }
 }
-private void exibirSaldos() {
-    Connection connection = null;
-    try {
-        connection = new conexao().getConnection();
-        UsuarioDAO usuarioDAO = new UsuarioDAO(connection);
-        
-        // Busca todos os saldos das criptomoedas do usuário
-        Map<String, Double> saldos = usuarioDAO.buscarTodosSaldos(usuarioLogado.getUsuario());
-        
-        // Cria uma string para exibir os saldos em formato HTML
-        StringBuilder saldoInfo = new StringBuilder("<html>");
-        for (Map.Entry<String, Double> entry : saldos.entrySet()) {
-            saldoInfo.append(entry.getKey()).append(": ").append(entry.getValue()).append("<br>");
-        }
-        saldoInfo.append("</html>");
-        
-        // Define o texto da label SALDOCRIPTO para exibir os saldos
-        SALDOCRIPTO.setText(saldoInfo.toString());
-        
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "Erro ao exibir saldos: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        ex.printStackTrace();
-    } finally {
-        // Garante que a conexão será fechada
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-}
+
 
     
 
@@ -187,7 +176,7 @@ private void exibirSaldos() {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("SALDO CRIPTO");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, -1, 27));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, -1, 27));
         getContentPane().add(selectCripto, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 261, 32));
         getContentPane().add(valorTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 261, 30));
 
@@ -214,7 +203,7 @@ private void exibirSaldos() {
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, -1, 20));
 
         SALDOCRIPTO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(SALDOCRIPTO, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 170, 250, 240));
+        getContentPane().add(SALDOCRIPTO, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 160, 310));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setText("Valor Vender");
