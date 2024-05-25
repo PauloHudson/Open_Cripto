@@ -15,6 +15,9 @@ public class ExtratoDAO {
         this.conexao = conexao;
     }
 
+ /** A função "insert" faz o a operação de novos registro na tabela "extrato" através do comando "INSERT INTO" do SQL.
+  * Depois disso, ela faz a inserção dos valores do objeto do tipo "Extrato".
+  */
     public void insert(Extrato extrato) {
         String sql = "INSERT INTO extrato (data, horario, condicao, tipo_moeda, cotacao, taxa, valor_final, usuario, valor_acionado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -37,6 +40,10 @@ public class ExtratoDAO {
         }
     }
 
+   /** A função "buscarPorUsuario" faz a busca dos dados da tabela "extrato" correspondentes a um usuário  específico, 
+    através do comando "SELECT".
+    Em seguida faz a criação de um novo objeto do tipo "Extrato", faz a adição na lista e retorna ela. */
+    
     public List<Extrato> buscarPorUsuario(String usuario) throws SQLException {
         List<Extrato> extratos = new ArrayList<>();
         String sql = "SELECT * FROM extrato WHERE usuario = ?";
