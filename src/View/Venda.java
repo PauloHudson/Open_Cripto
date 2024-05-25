@@ -1,10 +1,12 @@
 
 package View;
+import Model.Extrato;
 import dao.MoedaDAO;
 import dao.UsuarioDAO;
 import dao.conexao;
 import Model.Moeda;
 import Model.Usuario;
+import dao.ExtratoDAO;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,6 +19,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -135,6 +139,42 @@ private void atualizarSaldos() {
         // Atualiza o saldo em BRL
         usuarioLogado.setSaldo(usuarioLogado.getSaldo() + valorTotalVenda);
         usuarioDAO.atualizarSaldo(usuarioLogado);
+        
+        
+          String condicao = "-"; // Para uma venda, a condição é "-"
+          String tipoMoeda = siglaCripto; // Tipo de moeda é a sigla da criptomoeda
+          double cotacao = moedaDesejada.getValor(); // Cotação da moeda desejada
+          double valorFinal = usuarioLogado.getSaldo() - valorTotalVenda; // Saldo final após a venda
+          SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+          String horario = sdf.format(new Date());
+
+          Extrato extrato = new Extrato(
+              new Date(), 
+              horario, 
+              condicao, 
+              tipoMoeda, 
+              cotacao, 
+              0, 
+              valorFinal, 
+              usuarioLogado.getUsuario(), 
+              valorVenda 
+          );
+
+          ExtratoDAO extratoDao = new ExtratoDAO(connection);
+          extratoDao.insert(extrato); // Insere o extrato no banco de dados
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         // AAtualiza o saldo da criptomoeda
         saldoCripto -= valorVenda;

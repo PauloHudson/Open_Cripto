@@ -1,11 +1,13 @@
 
 package View;
+import Model.Extrato;
 import dao.MoedaDAO;
 import dao.UsuarioDAO;
 import dao.conexao;
 import Model.Moeda;
 import Model.Usuario; 
 import Model.Taxa;
+import dao.ExtratoDAO;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,6 +18,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -106,7 +110,32 @@ public class Compra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Saldo insuficiente.");
             return;
         }
+        
+        
+         String condicao = "+";
+            String tipoMoeda = siglaCripto; 
+            double cotacao = moedaDesejada.getValor(); // Cotação da moeda desejada
+            double valorFinal = usuarioLogado.getSaldo() - valorFinalCompra;
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            String horario = sdf.format(new Date());
 
+
+            Extrato extrato = new Extrato(
+                new Date(),
+                horario,
+                condicao,
+                tipoMoeda,
+                cotacao,
+                taxaCompra,
+                valorFinal,
+                usuarioLogado.getUsuario(),
+                valorCompra //acionado
+            );
+
+            ExtratoDAO extratoDao = new ExtratoDAO(connection);
+            extratoDao.insert(extrato);
+        
+        
         // Atualiza o saldo em BRL
         usuarioLogado.setSaldo(usuarioLogado.getSaldo() - valorFinalCompra);
         usuarioDAO.atualizarSaldo(usuarioLogado);

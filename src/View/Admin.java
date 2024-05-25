@@ -91,6 +91,11 @@ public class Admin extends javax.swing.JFrame {
         getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 150, 65));
 
         jButton11.setText("Extrato User");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 150, 65));
 
         CadastrarCripto.setText("Cadastrar Cripto");
@@ -145,6 +150,11 @@ public class Admin extends javax.swing.JFrame {
         AtualizarCotacao.atualizarCotacao(moedaDAO);
 
     }//GEN-LAST:event_AtualizarActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        ExtratoViewADMIN p = new ExtratoViewADMIN();
+        p.setVisible(true);
+    }//GEN-LAST:event_jButton11ActionPerformed
 
    
 

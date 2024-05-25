@@ -1,12 +1,16 @@
 package Controller;
 
+import Model.Extrato;
 import Model.Usuario;
 import View.ComprarCripto;
+import dao.ExtratoDAO;
 import javax.swing.JOptionPane;
 import dao.UsuarioDAO;
 import dao.conexao;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  *
  * @author paulo
@@ -44,9 +48,41 @@ public class DepositoController {
 
             double saldoAtual = usuarioAtualizado.getSaldo();
             usuario.setSaldo(saldoAtual + valorDepositar); //valorao saldo
+            ///////////------------------------------------------------------
+            ///////////------------------------------------------------------
+            ///////////------------------------------------------------------
+            ///////////------------------------------------------------------
+             String condicao = "+";
+            String tipoMoeda = "real"; 
+            double cotacao = 0.0; 
+            double taxa = 0.0; 
+            double valorFinal = saldoAtual += valorDepositar;
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            String horario = sdf.format(new Date());
+            double valor_acionado = valorDepositar;
 
+            Extrato extrato = new Extrato(
+                new Date(),
+                horario,
+                condicao,
+                tipoMoeda,
+                cotacao,
+                taxa,
+                valorFinal,
+                usuario.getUsuario(),
+                valor_acionado
+            );
+
+            ExtratoDAO extratoDao = new ExtratoDAO(conexao);
+            extratoDao.insert(extrato);
+            ///////////------------------------------------------------------
+            ///////////------------------------------------------------------
+            ///////////------------------------------------------------------
+            ///////////------------------------------------------------------
+            
+            
             usuarioDAO.atualizarSaldo(usuario);
-
+            
             JOptionPane.showMessageDialog(view, "Depósito realizado com sucesso!");
 
         } catch (NumberFormatException e) {

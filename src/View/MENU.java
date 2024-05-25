@@ -45,7 +45,7 @@ public class MENU extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         SacarButton = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        ExtratoButton = new javax.swing.JButton();
         ComprarCripto = new javax.swing.JButton();
         Venda = new javax.swing.JButton();
         Sair = new javax.swing.JButton();
@@ -77,8 +77,13 @@ public class MENU extends javax.swing.JFrame {
         });
         getContentPane().add(SacarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 123, 66));
 
-        jButton3.setText("Extrato");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 123, 66));
+        ExtratoButton.setText("Extrato");
+        ExtratoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExtratoButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ExtratoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 123, 66));
 
         ComprarCripto.setText("Comprar Cripto");
         ComprarCripto.addActionListener(new java.awt.event.ActionListener() {
@@ -187,16 +192,26 @@ public class MENU extends javax.swing.JFrame {
         v.setVisible(true);
     }//GEN-LAST:event_VendaActionPerformed
 
+    private void ExtratoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtratoButtonActionPerformed
+        ExtratoView p = null;
+        try {
+            p = new ExtratoView(usuario);
+        } catch (SQLException ex) {
+            Logger.getLogger(MENU.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        p.setVisible(true);
+    }//GEN-LAST:event_ExtratoButtonActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AtualizarCotacaoButton;
     private javax.swing.JButton ComprarCripto;
+    private javax.swing.JButton ExtratoButton;
     private javax.swing.JButton SacarButton;
     private javax.swing.JButton Sair;
     private javax.swing.JButton Venda;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -1,7 +1,9 @@
 package Controller;
 
+import Model.Extrato;
 import Model.Usuario;
 import View.SaqueView;
+import dao.ExtratoDAO;
 import javax.swing.JOptionPane;
 import dao.UsuarioDAO;
 import dao.conexao;
@@ -18,6 +20,8 @@ import dao.UsuarioDAO;
 import dao.conexao;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class SaqueController extends DepositoController {
     private final SaqueView view;
@@ -56,7 +60,38 @@ public class SaqueController extends DepositoController {
             }
 
             usuario.setSaldo(saldoAtual - valorSaque);
-            usuarioDAO.atualizarSaldo(usuario);
+            
+               
+            String condicao = "-";
+            String tipoMoeda = "real"; 
+            double cotacao = 0.0; 
+            double taxa = 0.0; 
+            double valorFinal = saldoAtual - valorSaque;
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            String horario = sdf.format(new Date());
+            double valor_acionado = valorSaque;
+
+            Extrato extrato = new Extrato(
+                new Date(),
+                horario,
+                condicao,
+                tipoMoeda,
+                cotacao,
+                taxa,
+                valorFinal,
+                usuario.getUsuario(),
+                valor_acionado
+            );
+
+            ExtratoDAO extratoDao = new ExtratoDAO(conexao);
+            extratoDao.insert(extrato);
+            
+            
+            
+            
+            
+            
+ 
 
             JOptionPane.showMessageDialog(view, "Saque realizado com sucesso!");
 

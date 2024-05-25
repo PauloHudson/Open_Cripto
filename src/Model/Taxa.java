@@ -27,7 +27,7 @@ public class Taxa {
                 taxaCompra = 0.01;
                 break;
             default:
-                taxaCompra = 0.00;
+                taxaCompra = 0.05;
                 break;
         }
         return valorCompra * taxaCompra;
