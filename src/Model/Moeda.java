@@ -6,6 +6,7 @@ public class Moeda {
     private String sigla;
     private String nome;
     private double valor;
+    private double taxa;
     
     //getters and setters;
 
@@ -41,6 +42,16 @@ public class Moeda {
         this.valor = valor;
     }
 
+    public double getTaxa() {
+        return taxa;
+    }
+
+    public void setTaxa(double taxa) {
+        this.taxa = taxa;
+    }
+    
+    
+
     public Moeda(String sigla, String nome, double valor) {
         this.id = id;
         this.sigla = sigla;
@@ -52,6 +63,11 @@ public class Moeda {
         this.id = id;
         this.nome = nome;
         this.valor = valor;
+    }
+
+    public Moeda(String sigla, double taxa) {
+        this.sigla = sigla;
+        this.taxa = taxa;
     }
     
     

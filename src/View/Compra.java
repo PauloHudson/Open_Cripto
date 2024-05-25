@@ -4,7 +4,8 @@ import dao.MoedaDAO;
 import dao.UsuarioDAO;
 import dao.conexao;
 import Model.Moeda;
-import Model.Usuario;
+import Model.Usuario; 
+import Model.Taxa;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -55,76 +56,78 @@ public class Compra extends javax.swing.JFrame {
     }
 
     private void realizarCompra() throws SQLException {
-        //seleciona a sigla da cripto
-        String siglaCripto = selectCripto.getText();
-        //seleciona o valor da cripto
-        double valorCompra = Double.parseDouble(valorTxt.getText());
-        //seleciona o campo senha.
-        String senha = new String(SenhaField.getPassword());
+    // Seleciona a sigla da cripto
+    String siglaCripto = selectCripto.getText();
+    // Seleciona o valor da cripto
+    double valorCompra = Double.parseDouble(valorTxt.getText());
+    // Seleciona o campo senha
+    String senha = new String(SenhaField.getPassword());
 
-        try (Connection connection = new conexao().getConnection()) {
-            UsuarioDAO usuarioDAO = new UsuarioDAO(connection);
-            MoedaDAO moedaDAO = new MoedaDAO(connection);
+    try (Connection connection = new conexao().getConnection()) {
+        UsuarioDAO usuarioDAO = new UsuarioDAO(connection);
+        MoedaDAO moedaDAO = new MoedaDAO(connection);
 
-            // Verifica a senha do usuário
-            if (!usuarioDAO.existePorUsuarioESenha(new Usuario(usuarioLogado.getUsuario(), senha, null))) {
-                JOptionPane.showMessageDialog(null, "Senha incorreta.");
-                return;
-            }
-
-            // Busca a moeda desejada
-            List<Moeda> moedas = moedaDAO.buscarTodasMoedas();
-            
-            Moeda moedaDesejada = null;
-            
-            for (Moeda moeda : moedas) {
-                //faz um get para obter a sigla e ver se ela é igual a do inputext; ignorando se é maiuscula métoto top.
-                if (moeda.getSigla().equalsIgnoreCase(siglaCripto)) {
-                    moedaDesejada = moeda;
-                    break;
-                }
-            }
-
-            if (moedaDesejada == null) {
-                JOptionPane.showMessageDialog(null, "Criptomoeda não encontrada.");
-                return;
-            }
-
-           //valor que digitei para comprar for maior que o saldo, então ele retorna error.
-            if (valorCompra > usuarioLogado.getSaldo()) {
-                JOptionPane.showMessageDialog(null, "Saldo insuficiente.");
-                return;
-            }
-
-            // Atualiza o saldo em BRL
-            usuarioLogado.setSaldo(usuarioLogado.getSaldo() - valorCompra);
-            usuarioDAO.atualizarSaldo(usuarioLogado);
-
-            // Atualiza o saldo da criptomoeda
-            Map<String, Double> saldos = usuarioDAO.buscarTodosSaldos(usuarioLogado.getUsuario());
-            double saldoCripto = saldos.getOrDefault(siglaCripto, 0.0);
-            
-            
-            //valor Que for a ser colocado, vai ser então pelo valor convertido do preço da moeda
-            saldoCripto += valorCompra / moedaDesejada.getValor();
-            
-            //saldoCripto -= valorCompra * moedaDesejada.getValor();
-
-            String sql = "UPDATE usuario SET saldo_" + siglaCripto + " = ? WHERE usuario = ?";
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setDouble(1, saldoCripto);
-                statement.setString(2, usuarioLogado.getUsuario());
-                statement.executeUpdate();
-            }
-
-            JOptionPane.showMessageDialog(null, "Compra realizada com sucesso!");
-            atualizarSaldos();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Erro ao realizar a compra", e);
+        // Verifica a senha do usuário
+        if (!usuarioDAO.existePorUsuarioESenha(new Usuario(usuarioLogado.getUsuario(), senha, null))) {
+            JOptionPane.showMessageDialog(null, "Senha incorreta.");
+            return;
         }
+
+        // Busca a moeda desejada
+        List<Moeda> moedas = moedaDAO.buscarTodasMoedas();
+        
+        Moeda moedaDesejada = null;
+        
+        for (Moeda moeda : moedas) {
+            // Faz um get para obter a sigla e ver se ela é igual à do inputText; ignorando maiúsculas e minúsculas
+            if (moeda.getSigla().equalsIgnoreCase(siglaCripto)) {
+                moedaDesejada = moeda;
+                break;
+            }
+        }
+
+        if (moedaDesejada == null) {
+            JOptionPane.showMessageDialog(null, "Criptomoeda não encontrada.");
+            return;
+        }
+
+        // Calcula a taxa de transação
+        Taxa taxa = new Taxa();
+        double taxaCompra = taxa.calculoTx(siglaCripto, valorCompra);
+        double valorFinalCompra = valorCompra + taxaCompra;
+
+        // Verifica se o saldo é suficiente para cobrir o valor da compra e a taxa
+        if (valorFinalCompra > usuarioLogado.getSaldo()) {
+            JOptionPane.showMessageDialog(null, "Saldo insuficiente.");
+            return;
+        }
+
+        // Atualiza o saldo em BRL
+        usuarioLogado.setSaldo(usuarioLogado.getSaldo() - valorFinalCompra);
+        usuarioDAO.atualizarSaldo(usuarioLogado);
+
+        // Atualiza o saldo da criptomoeda
+        Map<String, Double> saldos = usuarioDAO.buscarTodosSaldos(usuarioLogado.getUsuario());
+        double saldoCripto = saldos.getOrDefault(siglaCripto, 0.0);
+        
+        // Valor que for a ser colocado, vai ser então pelo valor convertido do preço da moeda
+        saldoCripto += valorCompra / moedaDesejada.getValor();
+
+        String sql = "UPDATE usuario SET saldo_" + siglaCripto + " = ? WHERE usuario = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setDouble(1, saldoCripto);
+            statement.setString(2, usuarioLogado.getUsuario());
+            statement.executeUpdate();
+        }
+
+        JOptionPane.showMessageDialog(null, "Compra realizada com sucesso!");
+        atualizarSaldos();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        throw new RuntimeException("Erro ao realizar a compra", e);
     }
+}
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -206,4 +209,6 @@ public class Compra extends javax.swing.JFrame {
     private javax.swing.JTextField selectCripto;
     private javax.swing.JTextField valorTxt;
     // End of variables declaration//GEN-END:variables
+
+ 
 }
