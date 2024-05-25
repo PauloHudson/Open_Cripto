@@ -9,8 +9,7 @@ package Model;
  * @author AnaCa
  */
 public class Taxa {
- 
-    public double calculoTx(String siglaCripto, double valorCompra) {
+     public double calculoTx(String siglaCripto, double valorCompra) {
         return calcularTaxaCmp(siglaCripto, valorCompra);
     }
 
@@ -33,3 +32,4 @@ public class Taxa {
         return valorCompra * taxaCompra;
     }
 }
+
