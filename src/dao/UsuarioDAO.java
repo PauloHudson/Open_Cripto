@@ -35,7 +35,8 @@ public class UsuarioDAO {
     }
     //Vai inserir os dados, tem de ser to tipo usuario(MODEL):
 
-    
+    /** A função insert tem como foco inserir as informações do usuário no nosso  banco de dados e para isso, verficamos primeiramente a existência 
+     do cadastro do usuário para depois usar o comando intert do SQL para fazer a inserção */
 public void insert(Usuario usuario) throws SQLException {
     // Verificar se o usuário já existe
     if (existePorUsuario(usuario.getUsuario())) {
@@ -56,7 +57,9 @@ public void insert(Usuario usuario) throws SQLException {
 }
 
 
-
+/** A função "existePorUsuario" faz a procura do usuário na tabela do banco de dados.
+ Para isso foi necessário o comando "SELECT" do SQL que selciona todas as colunas da tabela "usuario", especifíca que os dados serão selecionados da coluna "usuario"  
+ (que contém o CPF) e faz um filtro que busca por um valor específico*/
 public boolean existePorUsuario(String usuario) throws SQLException {
     String sql = "SELECT * FROM usuario WHERE usuario = ?";
     try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -71,7 +74,8 @@ public boolean existePorUsuario(String usuario) throws SQLException {
     
     
     
-    //para fazer o select no banco e enviar se vai ser true or false.
+    /** Essa função faz o mesmo processo da anterior, mas ao invés de selecionar somente os dados da coluna "usuario",
+     ela também seleciona os dados da coluna "senha", permitindo assim fazer o filtro que busque o usuários por seus CPFs e senhas.*/
 public boolean existePorUsuarioESenha(Usuario usuario) throws SQLException {
 
     String sql = "SELECT * FROM usuario WHERE usuario = ? AND senha = ?";
@@ -94,7 +98,9 @@ try (Connection conn = new conexao().getConnection();
 }
     };  
 
-
+/** A função "buscaPorUsuario" tem o mesmo comando da função "existePorUsuario" para intergir com o banco de dados mas, 
+ * ela serve para a crição de um novo usuário ao retonar o objeto "Usuario" com valores "usuario"(cpf), "senha" e "nome"
+ */
 public Usuario buscarPorUsuario(String usuario) throws SQLException {
     String sql = "SELECT * FROM usuario WHERE usuario = ?";
     try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -112,7 +118,9 @@ public Usuario buscarPorUsuario(String usuario) throws SQLException {
     }
     return null;
 }
-
+/**Para excluir um usuário, foi necessário usar o comando DELETE do SQL.
+ * Mais uma vez, é feita seleção dos dados da tabela "usuario", buscando um valor específico na coluna "usuario" para efetuar a exclusão
+ */
 public boolean deleteByUsuario(String usuario) throws SQLException {
     String sql = "DELETE FROM usuario WHERE usuario = ?";
     try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -124,7 +132,9 @@ public boolean deleteByUsuario(String usuario) throws SQLException {
         throw new RuntimeException("Erro ao excluir o usuário", e);
     }
 }
-
+/** Para a atualização do saldo, criamos a função "atualizarSaldo que com oo comando "UPTADE", na tabela "usuario", atribui um valor específico na coluna "saldo
+ onde "usuario" também possui um valor específico
+ */
   public void atualizarSaldo(Usuario usuario) throws SQLException {
         String sql = "UPDATE usuario SET saldo = ? WHERE usuario = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -135,7 +145,9 @@ public boolean deleteByUsuario(String usuario) throws SQLException {
     }
 
 
-//ele está a dar uma busac no banco pelos usuarios, apartir dele conseguimos fazer a busca na funcao
+/** Essa função, "buscarPorUsuarioNOVO", tem a mesma funcionalidade da função "buscarPorUsuario", mas
+ * ao criar o objeto "Usuario", foi acrescentado o saldo aos valores que são criados
+ */
 public Usuario buscarPorUsuarioNOVO(String usuario) throws SQLException {
     String sql = "SELECT * FROM usuario WHERE usuario = ?";
     try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -164,7 +176,8 @@ public Usuario buscarPorUsuarioNOVO(String usuario) throws SQLException {
     return null;
 }
 
-
+/** Essa função faz a seleção da tabela "usuario" e procura um valor específico na coluna "usuario"
+ e retorna o mapeamento do nome de cada moeda para seu saldo correspondente*/
 
 public Map<String, Double> buscarTodosSaldos(String usuario) throws SQLException {
     String sql = "SELECT * FROM usuario WHERE usuario = ?";
@@ -190,7 +203,7 @@ public Map<String, Double> buscarTodosSaldos(String usuario) throws SQLException
 
     return saldos;
 }
-
+/** Todas as funções recebem o parâmetro String usuario, pois representa cpf do usuario específico para realizar as operções dele*/
 
 
 }
