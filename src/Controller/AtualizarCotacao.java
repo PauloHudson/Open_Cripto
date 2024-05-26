@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class AtualizarCotacao {
-    
+    /** A função "atualizarCotacao" recebe como parâmetro o objeto do tipo "MoedaDAO" e  reliza as atualizações das cotações através do chamado
+    "moedaDAO.atualizarCotacoes()"
+    Ela também exibe mensagens que retornam se houve sucesso na operção ou se houve algum erro*/
     public static void atualizarCotacao(MoedaDAO moedaDAO) {
         try {
             moedaDAO.atualizarCotacoes();
