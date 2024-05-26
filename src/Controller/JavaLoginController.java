@@ -27,6 +27,11 @@ public class JavaLoginController {
         this.view = view;
     }
 
+/** A função "autenticar()", começa obtendo o cpf e senha do usuário, através da interface gráfica e faz a verificação 
+ se é o usuário administrador. Após a verificação, um objeto do tipo "Usuario" é criado com o cpf e senha que forma inseridos
+ Usamos um objeto do tipo "UsuarioDAO" para fazer a conexão com o banco de dados e com o chamado da função "usuariodao.existePorUsuarioESenha(usuarioAutenticar)
+ * ocorre a verificação se já existe um usuário com as informações dadas.
+ * Caso o usuário exista, a interface gráfica da área correspondente se abre. */
     public void autenticar() throws SQLException {
         String usuario = view.getjTextFieldUsuario().getText();
         String senha = view.getjPasswordFieldSenha().getText();
