@@ -30,7 +30,14 @@ public class SaqueController extends DepositoController {
         super(null, usuario); 
         this.view = view;
     }
-
+/** Apesar do nome, a função abaixo tem a funcionalidade de realizar saques dentro da nossa exchange.
+ * Primeiro, ela obtem o valor desejado para o saque e senha do usuário, depois faz a verificação das informações 
+ * e exibe uma mensagem caso elas não forem corretas. 
+ * A função faz a conexão com o banco de dados através do objeto do tipo "UsuarioDAO" para fazer a busca do saldo.
+ * Em seguida, verifica se o valor de saldo é suficiente para ralizar o saque e exibe uma mensagem caso não seja
+ * mas caso seja, ele faz a subtração do valor do saldo com o valor do saque.
+ * Por fim, cria um objeto do tipo "Extrato" e insere o objeto na tabela "extrato" do banco de dados.
+ */
     @Override
     public void realizarDeposito() {
         Double valorSaque = Double.parseDouble(view.getValorSacar().getText());
@@ -86,13 +93,6 @@ public class SaqueController extends DepositoController {
             ExtratoDAO extratoDao = new ExtratoDAO(conexao);
             extratoDao.insert(extrato);
             
-            
-            
-            
-            
-            
- 
-
             JOptionPane.showMessageDialog(view, "Saque realizado com sucesso!");
 
         } catch (NumberFormatException e) {
