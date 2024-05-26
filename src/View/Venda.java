@@ -1,12 +1,16 @@
 
 package View;
+import Model.BTC;
+import Model.ETH;
 import Model.Extrato;
 import dao.MoedaDAO;
 import dao.UsuarioDAO;
 import dao.conexao;
 import Model.Moeda;
 import Model.Usuario;
+import Model.XRP;
 import dao.ExtratoDAO;
+import interfaceTarifacao.Tarifacao;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -89,7 +93,7 @@ private void atualizarSaldos() {
 }
 
 
-    private void RealizarVenda() throws SQLException {
+ private void RealizarVenda() throws SQLException {
     // Seleciona a sigla da cripto
     String siglaCripto = selectCripto.getText();
     // Seleciona o valor da cripto a ser vendida
@@ -111,7 +115,6 @@ private void atualizarSaldos() {
         List<Moeda> moedas = moedaDAO.buscarTodasMoedas();
         Moeda moedaDesejada = null;
         for (Moeda moeda : moedas) {
-            // Faz um get para obter a sigla e ver se ela é igual a do inputText, ignorando se é maiúscula
             if (moeda.getSigla().equalsIgnoreCase(siglaCripto)) {
                 moedaDesejada = moeda;
                 break;
@@ -121,6 +124,23 @@ private void atualizarSaldos() {
         if (moedaDesejada == null) {
             JOptionPane.showMessageDialog(null, "Criptomoeda não encontrada.");
             return;
+        }
+
+        // Instancia a classe apropriada para a criptomoeda
+        Tarifacao tarifacao;
+        switch (siglaCripto.toUpperCase()) {
+            case "BTC":
+                tarifacao = new BTC();
+                break;
+            case "RPL":
+                tarifacao = new XRP();
+                break;
+            case "ETH":
+                tarifacao = new ETH();
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Criptomoeda não suportada.");
+                return;
         }
 
         // Busca os saldos das criptomoedas do usuário
@@ -134,51 +154,38 @@ private void atualizarSaldos() {
         }
 
         // Calcula o valor total da venda em BRL
-        double valorTotalVenda = valorVenda * moedaDesejada.getValor();
+        double taxaVenda = tarifacao.calcTxVenda(valorVenda);
+        double valorTotalVenda = valorVenda * moedaDesejada.getValor() - taxaVenda;
 
         // Atualiza o saldo em BRL
         usuarioLogado.setSaldo(usuarioLogado.getSaldo() + valorTotalVenda);
         usuarioDAO.atualizarSaldo(usuarioLogado);
-        
-        
-          String condicao = "-"; // Para uma venda, a condição é "-"
-          String tipoMoeda = siglaCripto; // Tipo de moeda é a sigla da criptomoeda
-          double cotacao = moedaDesejada.getValor(); // Cotação da moeda desejada
-          double valorFinal = usuarioLogado.getSaldo() - valorTotalVenda; // Saldo final após a venda
-          SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-          String horario = sdf.format(new Date());
 
-          Extrato extrato = new Extrato(
-              new Date(), 
-              horario, 
-              condicao, 
-              tipoMoeda, 
-              cotacao, 
-              3, 
-              valorFinal, 
-              usuarioLogado.getUsuario(), 
-              valorVenda 
-          );
+        // Cria o registro de extrato
+        String condicao = "-"; // Para uma venda, a condição é "-"
+        String tipoMoeda = siglaCripto; // Tipo de moeda é a sigla da criptomoeda
+        double cotacao = moedaDesejada.getValor(); // Cotação da moeda desejada
+        double valorFinal = usuarioLogado.getSaldo(); // Saldo final após a venda
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String horario = sdf.format(new Date());
 
-          ExtratoDAO extratoDao = new ExtratoDAO(connection);
-          extratoDao.insert(extrato); // Insere o extrato no banco de dados
+        Extrato extrato = new Extrato(
+            new Date(), 
+            horario, 
+            condicao, 
+            tipoMoeda, 
+            cotacao, 
+            taxaVenda, 
+            valorFinal, 
+            usuarioLogado.getUsuario(), 
+            valorVenda 
+        );
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        ExtratoDAO extratoDao = new ExtratoDAO(connection);
+        extratoDao.insert(extrato); // Insere o extrato no banco de dados
 
-        // AAtualiza o saldo da criptomoeda
+        // Atualiza o saldo da criptomoeda
         saldoCripto -= valorVenda;
-
         String sql = "UPDATE usuario SET saldo_" + siglaCripto + " = ? WHERE usuario = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setDouble(1, saldoCripto);

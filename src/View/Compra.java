@@ -1,13 +1,16 @@
 
 package View;
+import Model.BTC;
+import Model.ETH;
 import Model.Extrato;
 import dao.MoedaDAO;
 import dao.UsuarioDAO;
 import dao.conexao;
 import Model.Moeda;
 import Model.Usuario; 
-import Model.Taxa;
+import Model.XRP;
 import dao.ExtratoDAO;
+import interfaceTarifacao.Tarifacao;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -65,7 +68,7 @@ public class Compra extends javax.swing.JFrame {
     }
 
     private void realizarCompra() throws SQLException {
-    // Seleciona a sigla da cripto
+   // Seleciona a sigla da cripto
     String siglaCripto = selectCripto.getText();
     // Seleciona o valor da cripto
     double valorCompra = Double.parseDouble(valorTxt.getText());
@@ -100,9 +103,25 @@ public class Compra extends javax.swing.JFrame {
             return;
         }
 
+        // Instancia a classe apropriada para a criptomoeda
+        Tarifacao tarifacao;
+        switch (siglaCripto.toUpperCase()) {
+            case "BTC":
+                tarifacao = new BTC();
+                break;
+            case "RPL":
+                tarifacao = new XRP();
+                break;
+            case "ETH":
+                tarifacao = new ETH();
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Criptomoeda não suportada.");
+                return;
+        }
+
         // Calcula a taxa de transação
-        Taxa taxa = new Taxa();
-        double taxaCompra = taxa.calculoTx(siglaCripto, valorCompra);
+        double taxaCompra = tarifacao.calcTxCompra(valorCompra);
         double valorFinalCompra = valorCompra + taxaCompra;
 
         // Verifica se o saldo é suficiente para cobrir o valor da compra e a taxa
@@ -110,32 +129,30 @@ public class Compra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Saldo insuficiente.");
             return;
         }
-        
-        
-         String condicao = "+";
-            String tipoMoeda = siglaCripto; 
-            double cotacao = moedaDesejada.getValor(); // Cotação da moeda desejada
-            double valorFinal = usuarioLogado.getSaldo() - valorFinalCompra;
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            String horario = sdf.format(new Date());
 
+        // Cria o registro de extrato
+        String condicao = "+";
+        String tipoMoeda = siglaCripto;
+        double cotacao = moedaDesejada.getValor(); // Cotação da moeda desejada
+        double valorFinal = usuarioLogado.getSaldo() - valorFinalCompra;
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String horario = sdf.format(new Date());
 
-            Extrato extrato = new Extrato(
-                new Date(),
-                horario,
-                condicao,
-                tipoMoeda,
-                cotacao,
-                taxaCompra,
-                valorFinal,
-                usuarioLogado.getUsuario(),
-                valorCompra //acionado
-            );
+        Extrato extrato = new Extrato(
+            new Date(),
+            horario,
+            condicao,
+            tipoMoeda,
+            cotacao,
+            taxaCompra,
+            valorFinal,
+            usuarioLogado.getUsuario(),
+            valorCompra //acionado
+        );
 
-            ExtratoDAO extratoDao = new ExtratoDAO(connection);
-            extratoDao.insert(extrato);
-        
-        
+        ExtratoDAO extratoDao = new ExtratoDAO(connection);
+        extratoDao.insert(extrato);
+
         // Atualiza o saldo em BRL
         usuarioLogado.setSaldo(usuarioLogado.getSaldo() - valorFinalCompra);
         usuarioDAO.atualizarSaldo(usuarioLogado);
@@ -143,7 +160,7 @@ public class Compra extends javax.swing.JFrame {
         // Atualiza o saldo da criptomoeda
         Map<String, Double> saldos = usuarioDAO.buscarTodosSaldos(usuarioLogado.getUsuario());
         double saldoCripto = saldos.getOrDefault(siglaCripto, 0.0);
-        
+
         // Valor que for a ser colocado, vai ser então pelo valor convertido do preço da moeda
         saldoCripto += valorCompra / moedaDesejada.getValor();
 
@@ -161,6 +178,7 @@ public class Compra extends javax.swing.JFrame {
         e.printStackTrace();
         throw new RuntimeException("Erro ao realizar a compra", e);
     }
+
 }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

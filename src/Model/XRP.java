@@ -4,8 +4,29 @@
  */
 package Model;
 
-public class XRP extends Moeda {
-    public XRP(double valor) {
-        super("XRP", "Ripple", valor);
+import interfaceTarifacao.Tarifacao;
+
+public  class XRP implements Tarifacao {
+    private static final double taxaComp = 0.01;
+    private static final double taxaVnd = 0.01;
+
+    public double calcTxCompra(double valor) {
+        return valor * taxaComp;
     }
+
+
+    public double calcTxVenda(double valor) {
+        return valor * taxaVnd;
+    }
+
+   
+    public double taxaCompra(double valor) {
+        return taxaComp;
+    }
+
+    
+    public double taxaVenda(double valor) {
+        return taxaVnd;
+    }
+        
 }
