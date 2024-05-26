@@ -13,6 +13,9 @@ import javax.swing.JOptionPane;
 
 public class JavaDeleteController {
 
+    /** Para se conectar ao banco de dados e cria um objeto do tipo "UsuarioDAO", 
+     * após isso, a função busca o usuário específicado e faz a exclusão.
+     */
 public void excluirUsuarioPorUsuario(String usuario) {
         try (java.sql.Connection conexao = new conexao().getConnection()) {
             UsuarioDAO usuarioDao = new UsuarioDAO(conexao);
