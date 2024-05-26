@@ -23,7 +23,14 @@ public class DepositoController {
         this.view = view;
         this.usuario = usuario;
     }
-
+    
+/**Primeiramente, a função vai obter a senha do usuário e o valor de deposito desejado 
+ * a partir da interface  gráfica. Em seguida, vai fazer a verificação das informações do usuário e com o objeto do 
+ * tipo "UsuarioDAO" faz a interação com o nosso banco de dados, depois faz a busca do saldo do usuário no banco e
+ * atualiza o novo valor.
+ * Com isso, um objeto do tipo "Extrato" é criado para representar a transação e ao final há a inserção do objeto na 
+ * tabela "extrato".
+ */
     public void realizarDeposito() {
         String valorDepositarTexto = view.getValorDepositar().getText();
         String senha = new String(view.getSenhaField().getPassword());
@@ -52,7 +59,7 @@ public class DepositoController {
             ///////////------------------------------------------------------
             ///////////------------------------------------------------------
             ///////////------------------------------------------------------
-             String condicao = "+";
+            String condicao = "+";
             String tipoMoeda = "real"; 
             double cotacao = 0.0; 
             double taxa = 0.0; 
