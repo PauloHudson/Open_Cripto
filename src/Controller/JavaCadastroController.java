@@ -24,7 +24,12 @@ public class JavaCadastroController {
     }
     
     
-    
+    /** A função "SalvarUsuario" obtém o cpf do usuário, nome e senha, cria um novo objeto do tipo "Usuario" com as informações já citadas.
+     * Para se conectar ao banco de dados através do "UsuarioDAO" criando um objeto e com a chamada "usuarioDao.insert(usuarioNovo)"
+     * acontece a inserção do novo usuário no banco de dados .
+     * Se a operação for bem sucedida, uma aparece informando o sucesso e caso o contrário, acontece o mesmo.
+     * 
+     */
 public void SalvaUsuario() {
     String usuario = view.getjTextFieldUsuario().getText();
     String senha = view.getjPasswordSenha().getText();
