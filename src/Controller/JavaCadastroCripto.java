@@ -21,6 +21,12 @@ public class JavaCadastroCripto {
         this.view = view;
     }
 
+/** Em suma, a função "SalvarMoeda" obtém a sigla, o nome e o valor a partir da interface gráfica
+ * Em seguida, cria um objeto do tipo "Moeda" com a sigla, nome e valor, se conecta com o banco usando o objetp
+ * "MoedaDAO". 
+ * Com o chamado da função "moedaDAO.insertMoeda(novaMoeda)" ocorre a inserção de uma nova cripto no banco de dados.
+ * 
+ */
     public void SalvarMoeda() {
         String sigla = view.getCripto_Sigla().getText();
         String nome = view.getCripto_Nome().getText();
